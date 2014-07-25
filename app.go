@@ -1,8 +1,13 @@
+// Copyright 2014 The Azul3D Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
 	"appengine"
 	"appengine/urlfetch"
+	"bytes"
 	"errors"
 	"fmt"
 	"html/template"
@@ -13,7 +18,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"bytes"
 )
 
 var tmpl = template.Must(template.New("").Parse(`
@@ -25,11 +29,11 @@ var tmpl = template.Must(template.New("").Parse(`
 `))
 
 const (
-	githubOrg = "azul3d"
-	repoAliasHost = "azul3d.org"
+	githubOrg       = "azul3d"
+	repoAliasHost   = "azul3d.org"
 	repoAliasScheme = "http"
-	fileHost  = "azul3d.github.io"
-	tipVersion = "v0"
+	fileHost        = "azul3d.github.io"
+	tipVersion      = "v0"
 )
 
 // Pulls version tag from the URL. It would be at the last part of the URL
@@ -75,7 +79,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		repo.Path = path.Join(u, "repo")
 		repo.RawQuery = ""
 		tmpl.Execute(w, map[string]interface{}{
-			"Repo": repo.String(),
+			"Repo":    repo.String(),
 			"PkgPath": path.Join(repoAliasHost, u),
 		})
 		return true
@@ -86,7 +90,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 	if r.Method == "GET" && strings.HasSuffix(u, "/info/refs") && query.Get("service") == "git-upload-pack" {
 		// Strip /repo/info/refs from URL.
 		fp := strings.Split(u, "/")
-		fp = fp[1:len(fp)-3]
+		fp = fp[1 : len(fp)-3]
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
@@ -102,9 +106,9 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 
 		// Create URL to target repo's /info/refs
 		target := &url.URL{
-			Scheme: "http",
-			Host: "github.com",
-			Path: path.Join(githubOrg, repoName+".git", "/info/refs"),
+			Scheme:   "http",
+			Host:     "github.com",
+			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
 			RawQuery: "service=git-upload-pack",
 		}
 
@@ -139,7 +143,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 	if r.Method == "POST" && strings.HasSuffix(u, "/git-upload-pack") {
 		// Strip /repo/git-upload-pack from URL.
 		fp := strings.Split(u, "/")
-		fp = fp[1:len(fp)-2]
+		fp = fp[1 : len(fp)-2]
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
@@ -148,8 +152,8 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		// Create URL to target repo's /git-upload-pack
 		target := &url.URL{
 			Scheme: "http",
-			Host: "github.com",
-			Path: path.Join(githubOrg, repoName+".git", "/git-upload-pack"),
+			Host:   "github.com",
+			Path:   path.Join(githubOrg, repoName+".git", "/git-upload-pack"),
 		}
 
 		w.Header().Set("Location", target.String())
@@ -162,7 +166,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 	if r.Method == "GET" && strings.HasSuffix(u, "/info/refs") && query.Get("service") == "git-receive-pack" {
 		// Strip /repo/info/refs from URL.
 		fp := strings.Split(u, "/")
-		fp = fp[1:len(fp)-3]
+		fp = fp[1 : len(fp)-3]
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
@@ -170,9 +174,9 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 
 		// Create URL to target repo's /info/refs
 		target := &url.URL{
-			Scheme: "http",
-			Host: "github.com",
-			Path: path.Join(githubOrg, repoName+".git", "/info/refs"),
+			Scheme:   "http",
+			Host:     "github.com",
+			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
 			RawQuery: "service=git-receive-pack",
 		}
 
