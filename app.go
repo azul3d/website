@@ -33,17 +33,28 @@ const (
 	repoAliasHost   = "azul3d.org"
 	repoAliasScheme = "http"
 	fileHost        = "azul3d.github.io"
-	tipVersion      = "v0"
 )
+
+// isTip is short-hand for:
+//  return version == "v0" || version == "dev"
+func isTip(version string) bool {
+	return version == "v0" || version == "dev"
+}
 
 // Pulls version tag from the URL. It would be at the last part of the URL
 // like so:
 //  foobar.org/something/something/maybe/here.v0
+//  foobar.org/something/something/maybe/here.dev
 //  foobar.org/something/something/maybe/here.v1.2
 //
 // NOT like:
 //  foobar.org/something/something/maybe/here.v1.2/info/refs
+//
+// Always returns "dev" for any .dev or .v0 string.
 func versionFromEnd(p string) string {
+	if strings.HasSuffix(p, "dev") || strings.HasSuffix(p, "v0") {
+		return "dev"
+	}
 	// he.re.v1.2
 	split := strings.Split(path.Base(p), ".v")
 	if len(split) > 1 {
@@ -53,6 +64,7 @@ func versionFromEnd(p string) string {
 }
 
 // Takes a string like:
+//  cmd/foo/bar.dev
 //  cmd/foo/bar.v1
 // and returns:
 //  cmd-foo-bar
@@ -121,7 +133,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 			return true
 		}
 
-		if version != tipVersion {
+		if !isTip(version) {
 			//ctx.Infof("\n\nHack git refs:\n\n%s\n", string(refs.data))
 			// Hack the git refs to the given version.
 			err = refs.hack(version)
