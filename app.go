@@ -5,8 +5,6 @@
 package main
 
 import (
-	"appengine"
-	"appengine/urlfetch"
 	"bytes"
 	"errors"
 	"fmt"
@@ -18,6 +16,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"appengine"
+	"appengine/urlfetch"
 )
 
 var tmpl = template.Must(template.New("").Parse(`
