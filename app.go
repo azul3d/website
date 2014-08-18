@@ -7,18 +7,17 @@ package main
 import (
 	"bytes"
 	"errors"
+	"flag"
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
 	"strconv"
 	"strings"
 	"time"
-
-	"appengine"
-	"appengine/urlfetch"
 )
 
 var tmpl = template.Must(template.New("").Parse(`
@@ -76,7 +75,7 @@ func gitRepoName(path string) string {
 	return strings.Split(path, ".")[0]
 }
 
-func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request) bool {
+func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 	// Clean the URL.
 	u := path.Clean(r.URL.Path)
 
@@ -107,12 +106,12 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//ctx.Infof("u=%q version=%q repoName=%q\n", u, version, repoName)
+		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
 
 		if len(version) == 0 {
 			// The path doesn't have a version in it, we can't serve this
 			// request.
-			ctx.Infof("Request without version in URL.\n")
+			log.Printf("Request without version in URL.\n")
 			w.WriteHeader(http.StatusNotFound)
 			return true
 		}
@@ -126,24 +125,24 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		}
 
 		// Fetch info/refs from target repository.
-		//ctx.Infof("fetchRefs from %s\n", target.String())
-		refs, err := fetchRefs(urlfetch.Client(ctx), target.String())
+		//log.Printf("fetchRefs from %s\n", target.String())
+		refs, err := fetchRefs(target.String())
 		if err != nil {
-			ctx.Infof("Failed to fetch remote refs: %v\n", err)
+			log.Printf("Failed to fetch remote refs: %v\n", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return true
 		}
 
 		if !isTip(version) {
-			//ctx.Infof("\n\nHack git refs:\n\n%s\n", string(refs.data))
+			//log.Printf("\n\nHack git refs:\n\n%s\n", string(refs.data))
 			// Hack the git refs to the given version.
 			err = refs.hack(version)
 			if err != nil {
-				ctx.Infof("%v\n", err)
+				log.Printf("%v\n", err)
 				w.WriteHeader(http.StatusNotFound)
 				return true
 			}
-			//ctx.Infof("\n\nAFTER HACK:\n\n%s\n", string(refs.data))
+			//log.Printf("\n\nAFTER HACK:\n\n%s\n", string(refs.data))
 		}
 
 		w.Header().Set("Content-Type", "application/x-git-upload-pack-advertisement")
@@ -160,7 +159,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//ctx.Infof("u=%q version=%q repoName=%q\n", u, version, repoName)
+		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
 
 		// Create URL to target repo's /git-upload-pack
 		target := &url.URL{
@@ -183,7 +182,7 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 		fps := path.Join(fp...)
 		version := versionFromEnd(fps)
 		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//ctx.Infof("u=%q version=%q repoName=%q\n", u, version, repoName)
+		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
 
 		// Create URL to target repo's /info/refs
 		target := &url.URL{
@@ -201,13 +200,11 @@ func handleGoTool(ctx appengine.Context, w http.ResponseWriter, r *http.Request)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	ctx := appengine.NewContext(r)
-
-	ctx.Infof("%v %v\n", r.Method, r.URL)
+	log.Printf("%v %v\n", r.Method, r.URL)
 
 	// If it's the Go tool (or git HTTP, etc) then we let that function handle
 	// it.
-	if handleGoTool(ctx, w, r) {
+	if handleGoTool(w, r) {
 		return
 	}
 
@@ -220,9 +217,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	delete(r.Header, "Content-Length")
 	r.URL.Host = fileHost
 
-	resp, err := urlfetch.Client(ctx).Do(r)
+	resp, err := http.DefaultClient.Do(r)
 	if err != nil {
-		ctx.Infof("GET error: %v\n", err)
+		log.Printf("GET error: %v\n", err)
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
@@ -230,7 +227,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	respData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		ctx.Infof("GET read error: %v\n", err)
+		log.Printf("GET read error: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -240,15 +237,25 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if stringTime != "" {
 		modtime, err = time.Parse(http.TimeFormat, stringTime)
 		if err != nil {
-			ctx.Infof("%v\n", err)
+			log.Printf("%v\n", err)
 		}
 	}
 	http.ServeContent(w, r, path.Base(r.URL.Path), modtime, bytes.NewReader(respData))
 	return
 }
 
-func init() {
+var (
+	addr = flag.String("http", ":80", "HTTP address to serve on")
+)
+
+func main() {
+	flag.Parse()
 	http.HandleFunc("/", handler)
+	log.Println("Serving on", *addr)
+	err := http.ListenAndServe(*addr, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 type gitRefs struct {
@@ -328,8 +335,8 @@ func (r *gitRefs) hack(version string) error {
 	return nil
 }
 
-func fetchRefs(client *http.Client, refsURL string) (*gitRefs, error) {
-	resp, err := client.Get(refsURL)
+func fetchRefs(refsURL string) (*gitRefs, error) {
+	resp, err := http.Get(refsURL)
 	if err != nil {
 		return nil, err
 	}
