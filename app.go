@@ -5,11 +5,11 @@
 package main
 
 import (
-	"bytes"
 	"errors"
 	"flag"
 	"fmt"
 	"html/template"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,7 +17,6 @@ import (
 	"path"
 	"strconv"
 	"strings"
-	"time"
 )
 
 var tmpl = template.Must(template.New("").Parse(`
@@ -215,7 +214,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	r.RequestURI = ""
 	delete(r.Header, "Content-Length")
+
+	// Change Host in URL so that the request goes to the file host.
 	r.URL.Host = fileHost
+
+	// Force the Host header to be the file host (github.io uses this header).
+	r.Host = fileHost
 
 	resp, err := http.DefaultClient.Do(r)
 	if err != nil {
@@ -225,22 +229,19 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	respData, err := ioutil.ReadAll(resp.Body)
+	// Copy headers over.
+	hdr := w.Header()
+	for k, v := range resp.Header {
+		hdr[k] = v
+	}
+	w.WriteHeader(resp.StatusCode)
+
+	_, err = io.Copy(w, resp.Body)
 	if err != nil {
-		log.Printf("GET read error: %v\n", err)
+		log.Printf("Proxy copy error: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	var modtime time.Time
-	stringTime := resp.Header.Get("Last-Modified")
-	if stringTime != "" {
-		modtime, err = time.Parse(http.TimeFormat, stringTime)
-		if err != nil {
-			log.Printf("%v\n", err)
-		}
-	}
-	http.ServeContent(w, r, path.Base(r.URL.Path), modtime, bytes.NewReader(respData))
 	return
 }
 
