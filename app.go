@@ -244,7 +244,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	hdr["Content-Type"] = http.DetectContentType(ident)
+	hdr["Content-Type"] = []string{http.DetectContentType(ident)}
 
 	// Write the header / status code.
 	w.WriteHeader(resp.StatusCode)
