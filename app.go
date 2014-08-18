@@ -237,20 +237,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Peek to detect the content type.
-	br := bufio.NewReaderSize(resp.Body, 512)
-	ident, err := br.Peek(512)
-	if err != nil {
-		log.Printf("Proxy peek error: %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+	br := bufio.NewReaderSize(resp.Body, 1024)
+	if r.Method != "HEAD" && len(resp.Header.Get("If-Modified-Since")) != 0 {
+		ident, err := br.Peek(512)
+		if err != nil {
+			log.Printf("Proxy peek error: %v\n", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		hdr["Content-Type"] = []string{http.DetectContentType(ident)}
+	} else if len(versionFromEnd(r.URL.Path)) > 0 {
+		// .dev and versioned files (.v0, .v1.2 etc) are always HTML files.
+		hdr["Content-Type"] = []string{
+			"text/html",
+			"charset=utf-8",
+		}
 	}
-	hdr["Content-Type"] = []string{http.DetectContentType(ident)}
 
 	// Write the header / status code.
 	w.WriteHeader(resp.StatusCode)
 
 	// Copy the response to the user.
-	_, err = io.Copy(w, resp.Body)
+	_, err = io.Copy(w, br)
 	if err != nil {
 		log.Printf("Proxy copy error: %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
