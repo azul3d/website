@@ -18,6 +18,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var tmpl = template.Must(template.New("").Parse(`
@@ -34,6 +35,8 @@ const (
 	repoAliasScheme = "http"
 	fileHost        = "azul3d.github.io"
 )
+
+var lastIdlePurge = time.Now()
 
 // isTip is short-hand for:
 //  return version == "v0" || version == "dev"
@@ -202,6 +205,12 @@ func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 func handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("%v %v\n", r.Method, r.URL)
 
+	// Purge idle connections.
+	if time.Since(lastIdlePurge) > 2*time.Hour {
+		lastIdlePurge = time.Now()
+		http.DefaultTransport.CloseIdleConnections()
+	}
+
 	// If it's the Go tool (or git HTTP, etc) then we let that function handle
 	// it.
 	if handleGoTool(w, r) {
@@ -363,6 +372,7 @@ func fetchRefs(refsURL string) (*gitRefs, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
 		if resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusNotFound {
 			return nil, ErrRepoNotFound
@@ -370,7 +380,6 @@ func fetchRefs(refsURL string) (*gitRefs, error) {
 			return nil, fmt.Errorf("error from repo: %v", resp.Status)
 		}
 	}
-	defer resp.Body.Close()
 
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
