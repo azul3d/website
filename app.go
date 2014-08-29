@@ -208,7 +208,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// Purge idle connections.
 	if time.Since(lastIdlePurge) > 2*time.Hour {
 		lastIdlePurge = time.Now()
-		http.DefaultTransport.CloseIdleConnections()
+		http.DefaultTransport.(*http.Transport).CloseIdleConnections()
 	}
 
 	// If it's the Go tool (or git HTTP, etc) then we let that function handle
