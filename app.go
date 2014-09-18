@@ -30,10 +30,11 @@ var tmpl = template.Must(template.New("").Parse(`
 `))
 
 const (
-	githubOrg       = "azul3d"
-	repoAliasHost   = "azul3d.org"
-	repoAliasScheme = "http"
-	fileHost        = "azul3d.github.io"
+	githubOrg     = "azul3d"
+	repoAliasHost = "azul3d.org"
+	fileHost      = "azul3d.github.io"
+	certFile      = "azul3d.org.pem"
+	keyFile       = "azul3d.org.key"
 )
 
 var lastIdlePurge = time.Now()
@@ -90,7 +91,6 @@ func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 	if r.Method == "GET" && len(query.Get("go-get")) > 0 {
 		repo := *r.URL
 		repo.Host = repoAliasHost
-		repo.Scheme = repoAliasScheme
 		repo.Path = path.Join(u, "repo")
 		repo.RawQuery = ""
 		tmpl.Execute(w, map[string]interface{}{
@@ -121,7 +121,7 @@ func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 
 		// Create URL to target repo's /info/refs
 		target := &url.URL{
-			Scheme:   "http",
+			Scheme:   r.URL.Scheme,
 			Host:     "github.com",
 			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
 			RawQuery: "service=git-upload-pack",
@@ -166,7 +166,7 @@ func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 
 		// Create URL to target repo's /git-upload-pack
 		target := &url.URL{
-			Scheme: "http",
+			Scheme: r.URL.Scheme,
 			Host:   "github.com",
 			Path:   path.Join(githubOrg, repoName+".git", "/git-upload-pack"),
 		}
@@ -189,7 +189,7 @@ func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
 
 		// Create URL to target repo's /info/refs
 		target := &url.URL{
-			Scheme:   "http",
+			Scheme:   r.URL.Scheme,
 			Host:     "github.com",
 			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
 			RawQuery: "service=git-receive-pack",
@@ -211,6 +211,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.DefaultTransport.(*http.Transport).CloseIdleConnections()
 	}
 
+	if r.URL.Scheme == "" {
+		r.URL.Scheme = "https"
+	}
+
 	// If it's the Go tool (or git HTTP, etc) then we let that function handle
 	// it.
 	if handleGoTool(w, r) {
@@ -219,9 +223,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Just proxy the request to the file host then (it's an actual user -- not
 	// the Go tool).
-	if r.URL.Scheme == "" {
-		r.URL.Scheme = "http"
-	}
 	r.RequestURI = ""
 	delete(r.Header, "Content-Length")
 
@@ -277,12 +278,24 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 var (
-	addr = flag.String("http", ":80", "HTTP address to serve on")
+	addr    = flag.String("http", ":80", "HTTP address to serve on")
+	tlsaddr = flag.String("https", ":443", "HTTPS address to serve on")
 )
 
 func main() {
 	flag.Parse()
 	http.HandleFunc("/", handler)
+
+	// Start HTTPS server:
+	go func() {
+		log.Println("Serving on", *tlsaddr)
+		err := http.ListenAndServeTLS(*tlsaddr, certFile, keyFile, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	// Start HTTP server:
 	log.Println("Serving on", *addr)
 	err := http.ListenAndServe(*addr, nil)
 	if err != nil {
