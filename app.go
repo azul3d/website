@@ -31,7 +31,6 @@ var (
 	pkgHandler    = &semver.Handler{
 		Matcher:  semver.MatcherFunc(compatMatcher),
 		Host:     host,
-		NoSecure: true,
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 )
