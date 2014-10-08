@@ -6,200 +6,66 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"flag"
-	"fmt"
-	"html/template"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"path"
-	"strconv"
 	"strings"
 	"time"
-)
 
-var tmpl = template.Must(template.New("").Parse(`
-<html>
- <head>
-  <meta name="go-import" content="{{.PkgPath}} git {{.Repo}}">
- </head>
-</html>
-`))
+	"azul3d.org/semver.v1"
+)
 
 const (
-	githubOrg     = "azul3d"
-	repoAliasHost = "azul3d.org"
-	fileHost      = "azul3d.github.io"
-	certFile      = "azul3d.org.pem"
-	keyFile       = "azul3d.org.key"
+	githubOrg = "azul3d"
+	host      = "azul3d.org"
+	fileHost  = "azul3d.github.io"
+	certFile  = "azul3d.org.pem"
+	keyFile   = "azul3d.org.key"
 )
 
-var lastIdlePurge = time.Now()
-
-// isTip is short-hand for:
-//  return version == "v0" || version == "dev"
-func isTip(version string) bool {
-	return version == "v0" || version == "dev"
-}
-
-// Pulls version tag from the URL. It would be at the last part of the URL
-// like so:
-//  foobar.org/something/something/maybe/here.v0
-//  foobar.org/something/something/maybe/here.dev
-//  foobar.org/something/something/maybe/here.v1.2
-//
-// NOT like:
-//  foobar.org/something/something/maybe/here.v1.2/info/refs
-//
-// Always returns "dev" for any .dev or .v0 string.
-func versionFromEnd(p string) string {
-	if strings.HasSuffix(p, "dev") || strings.HasSuffix(p, "v0") {
-		return "dev"
+var (
+	lastIdlePurge = time.Now()
+	pkgHandler    = &semver.Handler{
+		Matcher:  semver.MatcherFunc(compatMatcher),
+		Host:     host,
+		NoSecure: true,
 	}
-	// he.re.v1.2
-	split := strings.Split(path.Base(p), ".v")
-	if len(split) > 1 {
-		return "v" + split[len(split)-1]
-	}
-	return ""
-}
+	githubMatcher = semver.GitHub(githubOrg)
+)
 
-// Takes a string like:
-//  cmd/foo/bar.dev
-//  cmd/foo/bar.v1
-// and returns:
-//  cmd-foo-bar
-func gitRepoName(path string) string {
-	// Change cmd/foo to cmd-foo
-	path = strings.Replace(path, "/", "-", -1)
-	// Strip version from end.
-	return strings.Split(path, ".")[0]
-}
-
-func handleGoTool(w http.ResponseWriter, r *http.Request) bool {
-	// Clean the URL.
-	u := path.Clean(r.URL.Path)
-
-	// Parse the query.
-	query, _ := url.ParseQuery(r.URL.RawQuery)
-
-	// If the client is the 'go get' tool, then we serve them a small page that
-	// just contains the go-import meta tag -- that's all.
-	if r.Method == "GET" && len(query.Get("go-get")) > 0 {
-		repo := *r.URL
-		repo.Host = repoAliasHost
-		repo.Path = path.Join(u, "repo")
-		repo.RawQuery = ""
-		tmpl.Execute(w, map[string]interface{}{
-			"Repo":    repo.String(),
-			"PkgPath": path.Join(repoAliasHost, u),
-		})
-		return true
+func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
+	// Special case just for glfw.v3.1 -- we made a bad mistake here and this
+	// is purely for backwards compatability so you can still write the (uihhhhhhhhhhgbad)
+	// import:
+	//
+	//  "azul3d.org/native/glfw.v3.1"
+	//
+	// All imports like this should be updated to just ".v3" instead.
+	if u.Path == "/native/glfw.v3.1" {
+		u.Path = "/native/glfw.v3"
 	}
 
-	// If the client asks for /info/refs then we fetch them from the git repo
-	// and serve them to the client.
-	if r.Method == "GET" && strings.HasSuffix(u, "/info/refs") && query.Get("service") == "git-upload-pack" {
-		// Strip /repo/info/refs from URL.
-		fp := strings.Split(u, "/")
-		fp = fp[1 : len(fp)-3]
-		fps := path.Join(fp...)
-		version := versionFromEnd(fps)
-		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
-
-		if len(version) == 0 {
-			// The path doesn't have a version in it, we can't serve this
-			// request.
-			log.Printf("Request without version in URL.\n")
-			w.WriteHeader(http.StatusNotFound)
-			return true
-		}
-
-		// Create URL to target repo's /info/refs
-		target := &url.URL{
-			Scheme:   r.URL.Scheme,
-			Host:     "github.com",
-			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
-			RawQuery: "service=git-upload-pack",
-		}
-
-		// Fetch info/refs from target repository.
-		//log.Printf("fetchRefs from %s\n", target.String())
-		refs, err := fetchRefs(target.String())
-		if err != nil {
-			log.Printf("Failed to fetch remote refs: %v\n", err)
-			w.WriteHeader(http.StatusInternalServerError)
-			return true
-		}
-
-		if !isTip(version) {
-			//log.Printf("\n\nHack git refs:\n\n%s\n", string(refs.data))
-			// Hack the git refs to the given version.
-			err = refs.hack(version)
-			if err != nil {
-				log.Printf("%v\n", err)
-				w.WriteHeader(http.StatusNotFound)
-				return true
-			}
-			//log.Printf("\n\nAFTER HACK:\n\n%s\n", string(refs.data))
-		}
-
-		w.Header().Set("Content-Type", "application/x-git-upload-pack-advertisement")
-		w.Write(refs.data)
-		return true
+	// Special case just for .dev paths -- previously we suggested importing
+	// in-development packages under the .dev extension (which violates semver
+	// specification):
+	//
+	//  "azul3d.org/tmx.dev"
+	//
+	// Now we redirect those to .v0 -- which has the *same effect*, but only a
+	// different meaning under semver specification. In-development packages
+	// today are imported under either .v0 (no stable release yet) or .vN-dev:
+	//
+	//  "azul3d.org/tmx.v2-dev"
+	//
+	if strings.HasSuffix(u.Path, ".dev") {
+		u.Path = strings.TrimSuffix(u.Path, ".dev") + ".v0"
 	}
 
-	// If the client wants to POST to /git-upload-pack we redirect their
-	// request to the actual git repo.
-	if r.Method == "POST" && strings.HasSuffix(u, "/git-upload-pack") {
-		// Strip /repo/git-upload-pack from URL.
-		fp := strings.Split(u, "/")
-		fp = fp[1 : len(fp)-2]
-		fps := path.Join(fp...)
-		version := versionFromEnd(fps)
-		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
-
-		// Create URL to target repo's /git-upload-pack
-		target := &url.URL{
-			Scheme: r.URL.Scheme,
-			Host:   "github.com",
-			Path:   path.Join(githubOrg, repoName+".git", "/git-upload-pack"),
-		}
-
-		w.Header().Set("Location", target.String())
-		w.WriteHeader(http.StatusMovedPermanently)
-		return true
-	}
-
-	// /info/refs for service=git-receive-pack is just forwarded to the repo
-	// directly. This occurs when pushing changes via git.
-	if r.Method == "GET" && strings.HasSuffix(u, "/info/refs") && query.Get("service") == "git-receive-pack" {
-		// Strip /repo/info/refs from URL.
-		fp := strings.Split(u, "/")
-		fp = fp[1 : len(fp)-3]
-		fps := path.Join(fp...)
-		version := versionFromEnd(fps)
-		repoName := gitRepoName(strings.TrimSuffix(fps, version))
-		//log.Printf("u=%q version=%q repoName=%q\n", u, version, repoName)
-
-		// Create URL to target repo's /info/refs
-		target := &url.URL{
-			Scheme:   r.URL.Scheme,
-			Host:     "github.com",
-			Path:     path.Join(githubOrg, repoName+".git", "/info/refs"),
-			RawQuery: "service=git-receive-pack",
-		}
-
-		http.Redirect(w, r, target.String(), http.StatusSeeOther)
-		return true
-	}
-
-	return false
+	// Now let the github matcher perform the matching.
+	return githubMatcher.Match(u)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -211,14 +77,27 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.DefaultTransport.(*http.Transport).CloseIdleConnections()
 	}
 
-	if r.URL.Scheme == "" {
-		r.URL.Scheme = "https"
+	// Give our semver handler the ability to handle the request.
+	status, err := pkgHandler.Handle(w, r)
+	if err != nil {
+		log.Println(err)
+	}
+	if status == semver.Handled {
+		return
+	}
+	if status == semver.PkgPage {
+		// Package page, redirect them to godoc.org documentation.
+		tmp := *r.URL
+		tmp.Scheme = "https"
+		tmp.Host = "godoc.org"
+		tmp.Path = path.Join(pkgHandler.Host, tmp.Path)
+		http.Redirect(w, r, tmp.String(), http.StatusSeeOther)
+		return
 	}
 
-	// If it's the Go tool (or git HTTP, etc) then we let that function handle
-	// it.
-	if handleGoTool(w, r) {
-		return
+	// Default to HTTPS scheme.
+	if r.URL.Scheme == "" {
+		r.URL.Scheme = "https"
 	}
 
 	// Just proxy the request to the file host then (it's an actual user -- not
@@ -256,12 +135,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		hdr["Content-Type"] = []string{http.DetectContentType(ident)}
-	} else if len(versionFromEnd(r.URL.Path)) > 0 {
-		// .dev and versioned files (.v0, .v1.2 etc) are always HTML files.
-		hdr["Content-Type"] = []string{
-			"text/html",
-			"charset=utf-8",
-		}
 	}
 
 	// Write the header / status code.
@@ -288,10 +161,12 @@ func main() {
 
 	// Start HTTPS server:
 	go func() {
-		log.Println("Serving on", *tlsaddr)
-		err := http.ListenAndServeTLS(*tlsaddr, certFile, keyFile, nil)
-		if err != nil {
-			log.Fatal(err)
+		if len(*tlsaddr) > 0 {
+			log.Println("Serving on", *tlsaddr)
+			err := http.ListenAndServeTLS(*tlsaddr, certFile, keyFile, nil)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}()
 
@@ -301,105 +176,4 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-}
-
-type gitRefs struct {
-	data []byte
-}
-
-var (
-	ErrRepoNotFound    = errors.New("git repository not found")
-	ErrVersionNotFound = errors.New("failed to find version in git refs")
-)
-
-func (r *gitRefs) hack(version string) error {
-	var mrefi, mrefj, vrefi, vrefj int
-
-	vhead := "refs/heads/" + version
-	vtag := "refs/tags/" + version
-
-	data := r.data
-	sdata := string(r.data)
-	for i, j := 0, 0; i < len(data); i = j {
-		size, err := strconv.ParseInt(sdata[i:i+4], 16, 32)
-		if err != nil {
-			return fmt.Errorf("cannot parse refs line size: %s", string(data[i:i+4]))
-		}
-		if size == 0 {
-			size = 4
-		}
-		j = i + int(size)
-		if j > len(sdata) {
-			return fmt.Errorf("incomplete refs data received from repo")
-		}
-		if sdata[0] == '#' {
-			continue
-		}
-
-		hashi := i + 4
-		hashj := strings.IndexByte(sdata[hashi:j], ' ')
-		if hashj < 0 || hashj != 40 {
-			continue
-		}
-		hashj += hashi
-
-		namei := hashj + 1
-		namej := strings.IndexAny(sdata[namei:j], "\n\x00")
-		if namej < 0 {
-			namej = j
-		} else {
-			namej += namei
-		}
-
-		name := sdata[namei:namej]
-
-		if name == "refs/heads/master" {
-			mrefi = hashi
-			mrefj = hashj
-		}
-
-		if strings.HasPrefix(name, "refs/heads/v") || strings.HasPrefix(name, "refs/tags/v") {
-			// Annotated tag is peeled off and overrides the same version just parsed.
-			name = strings.TrimSuffix(name, "^{}")
-			if name == vtag || name == vhead {
-				vrefi = hashi
-				vrefj = hashj
-			}
-		}
-
-		//if mrefi > 0 && vrefi > 0 {
-		//	break
-		//}
-	}
-
-	if mrefi == 0 || vrefi == 0 {
-		return ErrVersionNotFound
-	}
-
-	copy(data[mrefi:mrefj], data[vrefi:vrefj])
-	return nil
-}
-
-func fetchRefs(refsURL string) (*gitRefs, error) {
-	resp, err := http.Get(refsURL)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		if resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusNotFound {
-			return nil, ErrRepoNotFound
-		} else {
-			return nil, fmt.Errorf("error from repo: %v", resp.Status)
-		}
-	}
-
-	data, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return &gitRefs{
-		data: data,
-	}, nil
 }
