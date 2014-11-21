@@ -63,13 +63,6 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 		u.Path = strings.TrimSuffix(u.Path, ".dev") + ".v0"
 	}
 
-	// Special case for azul3d.org/cmd/foobar -- we just want go get to fetch
-	// the latest version for these (which is effectively v0).
-	if strings.HasPrefix(u.Path, "/cmd/") {
-		u.Path = strings.TrimPrefix(u.Path, "/cmd/")
-		u.Path = "/cmd.v0/" + u.Path
-	}
-
 	// Now let the github matcher perform the matching.
 	return githubMatcher.Match(u)
 }
