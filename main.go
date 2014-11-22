@@ -198,7 +198,7 @@ func main() {
 	// Source code updater.
 	go func() {
 		for{
-			time.Sleep(1 * time.Minute)
+			time.Sleep(5 * time.Minute)
 			updated, err := src.Update()
 			if err != nil {
 				log.Println("Update error:", err)
