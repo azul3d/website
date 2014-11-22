@@ -5,18 +5,18 @@
 package main
 
 import (
-	"sync"
-	"time"
+	"io/ioutil"
 	"net/http"
 	"net/url"
-	"io/ioutil"
 	"path"
+	"sync"
+	"time"
 )
 
 // ghFile represents a single github file cache entry.
 type ghFile struct {
-	t time.Time // The time at which the file was last requested.
-	data []byte // Literal file data.
+	t    time.Time // The time at which the file was last requested.
+	data []byte    // Literal file data.
 }
 
 // RawGH can fetch and cache requests for small files from:
@@ -60,8 +60,8 @@ func (r *RawGH) Fetch(fp string) ([]byte, error) {
 
 	u := &url.URL{
 		Scheme: "https",
-		Host: "raw.githubusercontent.com",
-		Path: path.Join(r.User, r.Repo, r.Branch, fp),
+		Host:   "raw.githubusercontent.com",
+		Path:   path.Join(r.User, r.Repo, r.Branch, fp),
 	}
 	us := u.String()
 
@@ -94,7 +94,7 @@ func (r *RawGH) Fetch(fp string) ([]byte, error) {
 		return nil, err
 	}
 	r.cache[us] = ghFile{
-		t: time.Now(),
+		t:    time.Now(),
 		data: body,
 	}
 	return body, nil

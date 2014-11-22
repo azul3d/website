@@ -32,7 +32,7 @@ var (
 		Host:    "azul3d.org",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
-	pages = &RawGH{
+	pages         = &RawGH{
 		User: "azul3d",
 		Repo: "website",
 	}
