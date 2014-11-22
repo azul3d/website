@@ -202,6 +202,7 @@ func main() {
 			updated, err := src.Update()
 			if err != nil {
 				log.Println("Update error:", err)
+				continue
 			}
 			if updated {
 				log.Println("Updated source code. Exiting server..")
