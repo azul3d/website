@@ -14,6 +14,9 @@ import (
 	"path"
 	"strings"
 	"time"
+	"path/filepath"
+	"go/build"
+	"os"
 
 	"azul3d.org/semver.v1"
 )
@@ -36,7 +39,28 @@ var (
 		User: "azul3d",
 		Repo: "website",
 	}
+	src = &GitUpdater{
+		Dir: gpPath("azul3d.org/website"),
+	}
 )
+
+// gpPath finds and returns the absolute path to the first directory found in
+// the $GOPATH list.
+//
+//  $GOPATH=/home/joe/godev;/home/k/godev
+//  gpPath("foobar") -> "/home/joe/godev/src/foobar"
+//  gpPath("a/b")    -> "/home/k/godev/src/a/b"
+//  gpPath("oops")   -> ""
+//
+func gpPath(relPath string) string {
+	for _, p := range filepath.SplitList(build.Default.GOPATH) {
+		p = filepath.Join(p, "src", relPath)
+		if _, err := os.Stat(p); err == nil {
+			return p
+		}
+	}
+	return ""
+}
 
 func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 	// Special case just for glfw.v3.1 -- we made a bad mistake here and this
@@ -170,6 +194,22 @@ var (
 func main() {
 	flag.Parse()
 	http.HandleFunc("/", handler)
+
+	// Source code updater.
+	go func() {
+		for{
+			time.Sleep(5 * time.Minute)
+			updated, err := src.Update()
+			if err != nil {
+				log.Println("Update error:", err)
+			}
+			if updated {
+				log.Println("Updated source code. Exiting server..")
+				os.Exit(0)
+			}
+			log.Println("No updates.")
+		}
+	}()
 
 	// Start HTTPS server:
 	go func() {
