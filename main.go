@@ -63,6 +63,16 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 		u.Path = strings.TrimSuffix(u.Path, ".dev") + ".v0"
 	}
 
+	// Special case for /website, we want:
+	//
+	//  go get azul3d.org/website
+	//
+	// to simply download the latest (v0).
+	if strings.HasPrefix(u.Path, "/website") {
+		u.Path = u.Path[:len("/website")]
+		u.Path = "/website.v0" + u.Path
+	}
+
 	// Now let the github matcher perform the matching.
 	return githubMatcher.Match(u)
 }
