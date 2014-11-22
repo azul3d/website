@@ -4,9 +4,9 @@
 
 package mdattr
 
-import(
-	"bytes"
+import (
 	"bufio"
+	"bytes"
 	"io"
 )
 

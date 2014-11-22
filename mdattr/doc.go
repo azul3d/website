@@ -14,7 +14,7 @@
 // That is, prefixed and suffixed whitespace is stripped. For example, given a
 // Markdown document in the form of:
 //
-//  +Name   = Graham Joira   
+//  +Name   = Graham Joira
 //  +  VarTwo = 2
 //  +Var3   = The quick brown fox jumped over the lazy dog..
 //

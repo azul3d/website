@@ -4,9 +4,9 @@
 
 package mdattr
 
-import(
-	"testing"
+import (
 	"bytes"
+	"testing"
 )
 
 func testParse(file, want string, wantAttr map[string]string, t *testing.T) {
@@ -40,7 +40,7 @@ func TestParseAttr(t *testing.T) {
 	file := "+  Hello  =  the fox is quick\n+Foo   = bar  bar \n\n\n" + md
 	wantAttr := map[string]string{
 		"Hello": "the fox is quick",
-		"Foo": "bar  bar",
+		"Foo":   "bar  bar",
 	}
 	testParse(file, md, wantAttr, t)
 }
