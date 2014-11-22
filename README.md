@@ -12,8 +12,6 @@ This repository holds the code for the server running at [azul3d.org](https://az
 
 ## Installation
 
-The server must be run in the source directory:
-
 ```
 go get -u -d azul3d.org/website
 cd $GOPATH/src/azul3d.org/website
