@@ -40,5 +40,5 @@
 //
 //  ## Header 2
 //  Paragraph 2!
-// 
-package mdattr
+//
+package mdattr // import "azul3d.org/website/mdattr"
