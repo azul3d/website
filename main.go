@@ -29,8 +29,8 @@ const (
 var (
 	lastIdlePurge = time.Now()
 	pkgHandler    = &semver.Handler{
-		Matcher:  semver.MatcherFunc(compatMatcher),
-		Host:     host,
+		Matcher: semver.MatcherFunc(compatMatcher),
+		Host:    host,
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 )
