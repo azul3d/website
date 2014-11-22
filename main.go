@@ -20,7 +20,6 @@ import (
 
 const (
 	githubOrg = "azul3d"
-	host      = "azul3d.org"
 	fileHost  = "azul3d.github.io"
 	certFile  = "azul3d.org.pem"
 	keyFile   = "azul3d.org.key"
@@ -30,9 +29,13 @@ var (
 	lastIdlePurge = time.Now()
 	pkgHandler    = &semver.Handler{
 		Matcher: semver.MatcherFunc(compatMatcher),
-		Host:    host,
+		Host:    "azul3d.org",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
+	pages = &RawGH{
+		User: "azul3d",
+		Repo: "website",
+	}
 )
 
 func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
