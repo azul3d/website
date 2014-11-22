@@ -32,14 +32,13 @@ func (g *GitUpdater) localSHA() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return out.String(), nil
+	return string(out.Bytes()[:40]), nil
 }
 
 // remoteSHA queries the origin of the repository for the HEAD SHA:
 //
 //  git ls-remote origin HEAD
 //
-// Only the first 40 bytes (SHA length) are returned.
 func (g *GitUpdater) remoteSHA() (string, error) {
 	cmd := exec.Command("git", "ls-remote", "origin", "HEAD")
 	cmd.Dir = g.Dir
