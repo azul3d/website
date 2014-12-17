@@ -313,7 +313,7 @@ table td{
 }
 
 #markdown pre, #markdown blockquote, #markdown p code, #markdown li code {
-	background-color: #ddd;
+	background-color: #f2f2f2;
 	color: #444;
 	border-color: #222;
 }
