@@ -15,10 +15,10 @@ import (
 	"path/filepath"
 	"go/build"
 	"os"
-	"io/ioutil"
 	"html/template"
 
 	"azul3d.org/semver.v1"
+	"azul3d.org/website/mdattr"
 )
 
 const (
@@ -136,18 +136,21 @@ open:
 		goto open
 	}
 
-	data, err := ioutil.ReadAll(f)
+	// Split attributes from the markdown file.
+	attr, mdData, err := mdattr.Parse(f)
 	if err != nil {
 		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return true
 	}
-	html := template.HTML(mdRender(data))
+
+	tmplData := map[string]interface{}{
+		"HTML": template.HTML(mdRender(mdData)),
+		"Attr": attr,
+	}
 
 	tmp := tmpls.Lookup("markdown.tmpl")
-	err = tmp.Execute(w, map[string]interface{}{
-		"HTML": html,
-	})
+	err = tmp.Execute(w, tmplData)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
