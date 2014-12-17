@@ -1,0 +1,317 @@
+html {
+	position: relative;
+	min-height: 100%;
+	/*
+		Sadly, box shadow backgrounds are _extremely_ slow to render in both
+		recent Chrome and Firefox versions. Maybe in the future we can use
+		this, though.
+
+	-webkit-box-shadow: inset 0 0 300px rgba(0,0,0,.5);
+	box-shadow: inset 0 0 300px rgba(0,0,0,.5);
+	*/
+}
+
+body {
+	font-family: 'Audiowide', cursive;
+	color: #fff;
+	text-shadow: 0 .2em .6em rgba(0,0,0,.5);
+	background-color: #333;
+
+	/* Padding bottom by footer height */
+	padding-bottom: 60px;
+}
+
+a, a:focus, a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+
+/*
+    Navigation bar
+*/
+.navbar {
+	-webkit-box-shadow: 0 0 15px rgba(0,0,0,.5);
+	box-shadow: 0 0 15px rgba(0,0,0,.5);
+	color: white;
+	background-color: #333;
+	border: none;
+	border-color: #555;
+}
+
+.navbar .navbar-brand,
+.navbar-default .navbar-nav>li>a,
+.dropdown-menu>li>a,
+.dropdown-menu>li>a {
+	color: #bbb;
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus,
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+	color: #999;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover,
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus {
+	background-color: #555;
+	color: #ccc;
+}
+
+.navbar .navbar-brand {
+	font-size: 24px;
+	position: relative;
+	bottom: .39em;
+}
+
+.navbar a{
+	color: white;
+	text-decoration: none;
+	text-shadow: none;
+}
+
+.navbar .doubledown{
+	font-family: "dejavu_sansbook"; /* Nuclear symbol */
+	font-size: 200%;
+	right: .12em;
+	top: .18em;
+}
+
+.navbar-icons {
+	height: 50px;
+}
+
+.navbar-icon {
+	font-size: 150%;
+/*	position: relative;
+	top: .1em;*/
+	padding-right: .2em;
+	float: left;
+}
+
+.navbar-icon-ml {
+/*	position: relative;
+	bottom: .36em;*/
+}
+
+.icon-mail {
+	font-family: "dejavu_sansbook"; /* Mail symbol */
+	font-size: 250%;
+/*	position: relative;
+	top: .23em;*/
+	padding-right: .1em;
+}
+
+/* Dropdowns */
+.dropdown-menu {
+	-webkit-box-shadow: 0 0 15px rgba(0,0,0,.5);
+	box-shadow: 0 0 15px rgba(0,0,0,.5);
+	color: white;
+	background-color: #333;
+	border: none;
+	border-color: #555;
+}
+
+.dropdown-header{
+	color: #818181;
+}
+
+.dropdown-menu .divider {
+	background-color: #272727;
+}
+
+
+/*
+    Buttons
+*/
+.btn-default, .btn-default:hover, .btn-default:focus {
+	color: #333;
+	text-shadow: none; /* Prevent inheritence from `body` */
+	background-color: #fff;
+	border: 1px solid #fff;
+}
+
+/*
+    Page
+*/
+.anchor {
+	display: block;
+	position: relative;
+	top: -100px; /* Navbar height */
+	display: inline-block;
+}
+
+.content{
+	text-align: center;
+	font-family: "dejavu_sansbook";
+	min-height: 100%;
+	margin-top: 50px; /* Navbar height */
+}
+
+.content-inner{
+	display: inline-block;
+	text-align: left;
+	padding: 1em;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+
+/*
+    Footer
+*/
+.footer, .footer a{
+	text-align: center;
+	font-family: 'Audiowide', cursive;
+	font-size: 10px;
+	color: #999; /* IE8 proofing */
+	color: rgba(255,255,255,.5);
+	padding-bottom: 1em;
+}
+.footer {
+	text-shadow: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+}
+
+/*
+    Other
+*/
+.doubledown {
+	font-size: 200%;
+	position: relative;
+	top: .2em;
+}
+
+.biohazard{
+	font-family: "dejavu_sansbook";
+}
+
+
+/* Tables */
+table{
+	font-family: Arial, Helvetica, sans-serif;
+	padding-bottom: 1em;
+	margin-bottom: .5em;
+	margin-left: 1.5em;
+	text-shadow: none;
+	border: none;
+}
+
+thead{
+	font-family: 'Audiowide', cursive;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+
+	background-color: #222;
+	border-color: #333;
+	border: none;
+}
+
+table tr:nth-child(even) {
+	background-color: #222;
+	border: none;
+}
+
+table td{
+	padding: .25em;
+	padding-right: 1em;
+}
+
+table th {
+	padding: .5em;
+}
+
+/* ---------- Article Markdown Styles ---------- */
+#markdown h1:first-of-type{
+	padding-bottom: 0;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+#markdown h1 {
+	font-family: 'Audiowide', cursive;
+}
+
+#markdown .date{
+	font-family: 'Audiowide', cursive;
+	font-size: 80%;
+	padding-left: 1em;
+	padding-bottom: .5em;
+}
+
+#markdown ol {
+	list-style-type: decimal;
+	font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+	padding-left: 2.5em;
+}
+
+#markdown ul {
+    list-style-type: none;
+    padding: 0px;
+	padding-left: 1.25em;
+}
+
+#markdown ul, #markdown ol {
+	display: block;
+	line-height: 1.5em;
+	padding-right: 1.25em;
+}
+
+#markdown ul>span {
+	display: block;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-top: .1em;
+	padding-bottom: .1em;
+}
+
+#markdown ul>span>.biohazard {
+	margin-right: .5em;
+}
+
+#markdown ul>span>li {
+	font-family: Arial, Helvetica, sans-serif;
+	display: inline-block;
+	white-space: normal;
+	vertical-align: top;
+}
+
+#markdown blockquote{
+	font-style: italic;
+}
+
+#markdown pre, #markdown blockquote, #markdown p code, #markdown li code {
+	background-color: #4a4a4a;
+	color: #fff;
+	border-color: #272727;
+}
+
+#markdown pre, #markdown blockquote {
+	max-width: 100%;
+	display: inline-block;
+	padding-right: 1em;
+}
+
+#markdown pre, #markdown blockquote {
+	margin-bottom: .5em;
+	tab-size: 4;
+}
+
+#markdown p>code, #markdown blockquote>p {
+	margin: 0;
+}
+
+#markdown li>code, #markdown li>blockquote {
+	margin: 0;
+}
