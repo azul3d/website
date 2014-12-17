@@ -13,16 +13,16 @@ html {
 
 body {
 	font-family: 'Audiowide', cursive;
-	color: #fff;
+	color: #333;
 	/*text-shadow: 0 .2em .6em rgba(0,0,0,.5);*/
-	background-color: #333;
+	/*background-color: #333;*/
 
 	/* Padding bottom by footer height */
 	padding-bottom: 60px;
 }
 
 a, a:focus, a:hover {
-	color: #fff;
+	color: #333;
 	text-decoration: underline;
 }
 
@@ -33,8 +33,8 @@ a, a:focus, a:hover {
 .navbar {
 	-webkit-box-shadow: 0 0 15px rgba(0,0,0,.5);
 	box-shadow: 0 0 15px rgba(0,0,0,.5);
-	color: white;
-	background-color: #333;
+	color: #333;
+	/*background-color: #333;*/
 	border: none;
 	border-color: #555;
 }
@@ -43,14 +43,15 @@ a, a:focus, a:hover {
 .navbar-default .navbar-nav>li>a,
 .dropdown-menu>li>a,
 .dropdown-menu>li>a {
-	color: #bbb;
+	color: #333;
 }
 
 .navbar .navbar-brand:hover,
 .navbar .navbar-brand:focus,
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus {
-	color: #999;
+	color: #333;
+	text-shadow: 0 .1em .3em rgba(0,0,0,.25);
 }
 
 .navbar-default .navbar-nav>.active>a,
@@ -60,8 +61,8 @@ a, a:focus, a:hover {
 .navbar-default .navbar-nav>.open>a:hover,
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
-	background-color: #555;
-	color: #ccc;
+	color: #333;
+	text-shadow: 0 .1em .3em rgba(0,0,0,.25);
 }
 
 .navbar .navbar-brand {
@@ -71,7 +72,7 @@ a, a:focus, a:hover {
 }
 
 .navbar a{
-	color: white;
+	color: #333;
 	text-decoration: none;
 	text-shadow: none;
 }
@@ -112,14 +113,13 @@ a, a:focus, a:hover {
 .dropdown-menu {
 	-webkit-box-shadow: 0 0 15px rgba(0,0,0,.5);
 	box-shadow: 0 0 15px rgba(0,0,0,.5);
-	color: white;
-	background-color: #333;
+	color: #333;
 	border: none;
 	border-color: #555;
 }
 
 .dropdown-header{
-	color: #818181;
+	color: #333;
 }
 
 .dropdown-menu .divider {
@@ -170,8 +170,7 @@ a, a:focus, a:hover {
 	text-align: center;
 	font-family: 'Audiowide', cursive;
 	font-size: 10px;
-	color: #999; /* IE8 proofing */
-	color: rgba(255,255,255,.5);
+	color: #444;
 	padding-bottom: 1em;
 }
 .footer {
@@ -193,7 +192,6 @@ a, a:focus, a:hover {
 }
 
 .biohazard{
-	text-shadow: 0 .2em .6em rgba(0,0,0,.5);
 	font-family: "dejavu_sansbook";
 }
 
@@ -206,21 +204,31 @@ table{
 	margin-left: 1.5em;
 	text-shadow: none;
 	border: none;
+
+	*border-collapse: collapse; /* IE7 and lower */
+	border-spacing: 0; 
 }
 
-thead{
+table th{
+	padding: .5em;
+	font-weight: normal;
+	background-color: #ddd;
+}
+
+table th:first-child { border-radius: 6px 0 0 0; }
+table th:last-child { border-radius: 0 6px 0 0; }
+table th:only-child { border-radius: 6px 6px 0 0; }
+
+table>tbody>tr:last-child>td:first-child { border-radius: 0 0 0 6px; }
+
+table>tbody>tr:last-child>td:last-child { border-radius: 0 0 6px 0; }
+
+table thead{
 	font-family: 'Audiowide', cursive;
-	border-bottom: 1px solid black;
-	font-weight: bold;
-
-	background-color: #222;
-	border-color: #333;
-	border: none;
 }
 
-table tr:nth-child(even) {
-	background-color: #222;
-	border: none;
+table tr:nth-child(even) td {
+	background-color: #eee;
 }
 
 table td{
@@ -228,13 +236,8 @@ table td{
 	padding-right: 1em;
 }
 
-table th {
-	padding: .5em;
-}
-
 /* ---------- Article Markdown Styles ---------- */
 #markdown h1:first-of-type{
-	text-shadow: 0 .1em .3em rgba(0,0,0,.25);
 	padding-bottom: 0;
 	padding-top: 0;
 	margin-top: 0;
@@ -242,6 +245,10 @@ table th {
 
 #markdown h1 {
 	font-family: 'Audiowide', cursive;
+}
+
+#markdown p {
+	margin-left: 1em;
 }
 
 #markdown .date{
@@ -258,10 +265,13 @@ table th {
 	padding-left: 2.5em;
 }
 
+#markdown>ul {
+	margin-left: 2em;
+}
+
 #markdown ul {
     list-style-type: none;
     padding: 0px;
-	padding-left: 1.25em;
 }
 
 #markdown ul, #markdown ol {
@@ -274,12 +284,12 @@ table th {
 	display: block;
 	vertical-align: middle;
 	white-space: nowrap;
-	padding-top: .1em;
-	padding-bottom: .1em;
+	margin-top: .6em;
 }
 
 #markdown ul>span>.biohazard {
-	margin-right: .5em;
+	font-size: 150%;
+	margin-right: .25em;
 }
 
 #markdown ul>span>li {
@@ -293,15 +303,26 @@ table th {
 	font-style: italic;
 }
 
+#markdown p code, #markdown li code {
+	padding-top: .1em;
+	padding-bottom: 0;
+	padding-left: .3em;
+	padding-right: .3em;
+	display: inline-block;
+	border: 1px solid #222;
+}
+
 #markdown pre, #markdown blockquote, #markdown p code, #markdown li code {
-	background-color: #4a4a4a;
-	color: #fff;
-	border-color: #272727;
+	background-color: #ddd;
+	color: #444;
+	border-color: #222;
 }
 
 #markdown pre, #markdown blockquote {
 	max-width: 100%;
 	display: inline-block;
+	margin-left: 2em;
+	margin-right: 2em;
 	padding-right: 1em;
 }
 
