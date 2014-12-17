@@ -198,6 +198,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 var (
 	addr    = flag.String("http", ":80", "HTTP address to serve on")
 	tlsaddr = flag.String("https", ":443", "HTTPS address to serve on")
+	update  = flag.Bool("update", true, "update via Git and shutdown server after pull")
 )
 
 func main() {
@@ -206,21 +207,23 @@ func main() {
 	http.HandleFunc("/", handler)
 
 	// Source code updater.
-	go func() {
-		for{
-			time.Sleep(5 * time.Minute)
-			updated, err := src.Update()
-			if err != nil {
-				log.Println("Update error:", err)
-				continue
+	if *update {
+		go func() {
+			for{
+				time.Sleep(5 * time.Minute)
+				updated, err := src.Update()
+				if err != nil {
+					log.Println("Update error:", err)
+					continue
+				}
+				if updated {
+					log.Println("Updated source code. Exiting server..")
+					os.Exit(0)
+				}
+				log.Println("No updates.")
 			}
-			if updated {
-				log.Println("Updated source code. Exiting server..")
-				os.Exit(0)
-			}
-			log.Println("No updates.")
-		}
-	}()
+		}()
+	}
 
 	// Start HTTPS server:
 	go func() {
