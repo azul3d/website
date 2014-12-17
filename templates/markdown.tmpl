@@ -1,0 +1,97 @@
+{{template "top.tmpl" .Title}}
+
+<div id="markdown">
+{{.HTML}}
+</div>
+
+<script>
+$(function() {
+	var idName = function(text) {
+		// Convert to lowercase.
+		text = text.toLowerCase()
+
+		// Remove any non-alphanumeric, non-dash, and non-space characters.
+		text = text.replace(/[^a-z0-9- ]/g, "");
+
+		// Replace spaces with dashes.
+		text = text.replace(/[ ]/g, "-");
+
+		// Remove duplicate dashes.
+		return text.replace(/-+/g, "-");
+	}
+
+	// Add permalinks to every h1 after the first one.
+	$("#markdown h1").each(function(i, obj) {
+		if(i == 0) {
+			return;
+		}
+		var id = idName(obj.innerHTML);
+		var anchor = $("<a />", {
+			id: id,
+			class: "anchor",
+		});
+		var link = $("<a />", {
+			title: "permalink",
+			href: "#" + id,
+			text: "»",
+		});
+		$(this).prepend(" ");
+		anchor.prependTo($(this));
+		link.prependTo($(this));
+	});
+
+	$("#markdown table").each(function(i, obj) {
+		$(this).addClass("table");
+	});
+
+<!--
+	// Add top-of-page jump links to every h1.
+	$(".article h1").each(function(i, obj) {
+		if(i == 0) {
+			return;
+		}
+		var id = idName(obj.innerHTML);
+
+		var span = $("<span />", {
+			class: "toplink",
+			text: "(",
+		});
+
+		var link = $("<a />", {
+			title: "permalink",
+			href: "#top",
+			text: "top",
+		});
+		link.appendTo(span);
+		span.append(")");
+		$(this).append(" ");
+		span.appendTo($(this));
+	});
+-->
+
+	$("#markdown ul li").each(function(i, obj) {
+		var bio = $("<span />", {
+			class: "biohazard",
+			text: "☣",
+		});
+		var content = $("<span />", {
+			class: "content",
+		});
+		$(this).wrap('<span></span>');
+		bio.prependTo($(this).parent());
+	});
+
+	// Decode all ROT13 encoded email addresses. Online encoder at:
+	//  http://www.rot13.com/index.php
+	$('a[href^="mailto:"]').each(function(i, obj) {
+		var s = $(this).attr("href");
+		s = s.slice(("mailto:ROT13").length, s.length);
+		s = s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});
+		$(this).attr("href", "mailto:" + s);
+		$(this).html(s);
+	});
+});
+</script>
+
+{{template "bottom.tmpl"}}
+
