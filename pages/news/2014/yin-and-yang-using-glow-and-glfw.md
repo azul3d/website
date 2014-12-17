@@ -1,5 +1,5 @@
-# Yin and Yang: Using Glow and GLFW
-<p class="date">August 30, 2014</p>
++Title = Yin and Yang: Using Glow and GLFW
++Date  = August 30, 2014
 
 Azul3D's *glwrap* command and *[Glow](https://github.com/go-gl/glow)* are both OpenGL wrapper generators for Go, our *Chippy* library and *[GLFW 3](https://github.com/glfw/glfw)* are OpenGL window management libraries both usable from Go.
 

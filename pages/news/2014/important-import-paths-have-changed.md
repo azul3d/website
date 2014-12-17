@@ -1,5 +1,5 @@
-# Important - Import Paths Have Changed
-<p class="date">July 26, 2014</p>
++Title = Important - Import Paths Have Changed
++Date  = July 26, 2014
 
 During the [big move to GitHub](/news/2014/moving-from-google-code-to-github.html) we reconsidered the layout of the versioned import paths of Azul3D packages.
 

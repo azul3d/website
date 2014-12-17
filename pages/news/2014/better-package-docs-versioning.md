@@ -1,5 +1,5 @@
-# Better Package Docs, Versioning
-<p class="date">October 7, 2014</p>
++Title = Better Package Docs, Versioning
++Date  = October 7, 2014
 
 We've made several improvements to package API documentation and versioning. We now link directly to [GoDoc](https://godoc.org) for package documentation and we're *now truly using* [Semantic Versioning](http://semver.org/).
 

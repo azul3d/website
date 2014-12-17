@@ -1,4 +1,4 @@
-# Windows Installation
++Title = Windows Installation
 
 What follows is a detailed step-by-step guide to install all Azul3D dependencies on a Windows (386/amd64) platform. For other platforms please see the [installation page](/doc/install).
 

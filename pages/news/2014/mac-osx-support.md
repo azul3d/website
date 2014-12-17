@@ -1,5 +1,5 @@
-# Mac OS X Support!
-<p class="date">September 2, 2014</p>
++Title = Mac OS X Support!
++Date  = September 2, 2014
 
 When we officially announced Azul3D just one month ago; The two [supported platforms](/doc/platform-support.html) were Windows and Linux, so the biggest question everyone had was *"Will Azul3D support OS X?"*.
 

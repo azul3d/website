@@ -1,4 +1,4 @@
-# License
++Title = License
 
 This page describes in-detail the licensing terms of Azul3D.
 

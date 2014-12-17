@@ -1,5 +1,5 @@
-# audio/wav: version 1.1
-<p class="date">October 18, 2014</p>
++Title = audio/wav: version 1.1
++Date  = October 18, 2014
 
 The [audio/wav](/packages.html#audio-wav) package is a *WAV encoder and decoder*. It allows you to decode many different types of WAV files into raw PCM audio data.
 

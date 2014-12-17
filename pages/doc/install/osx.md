@@ -1,4 +1,4 @@
-# OS X Installation
++Title = OS X Installation
 
 What follows is a detailed step-by-step guide to install all Azul3D dependencies on a Mac OS X platform. For other platforms please see the [installation page](/doc/install).
 

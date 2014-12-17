@@ -1,4 +1,4 @@
-# Installation
++Title = Installation
 
 This page documents how to install Azul3D on any [supported platform](/doc/platform-support.html).
 

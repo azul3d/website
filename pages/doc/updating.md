@@ -1,4 +1,4 @@
-# Updating
++Title = Updating
 
 There are two different types of updating an Azul3D package. One is where you wish to update to a newer and better package API (if one is available), and the other is where you wish to receive bug fixes or new features for the latest available version of a package.
 

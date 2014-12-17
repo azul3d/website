@@ -1,5 +1,5 @@
-# gfx, gfx/gl2: minor update
-<p class="date">October 18, 2014</p>
++Title = gfx, gfx/gl2: minor update
++Date  = October 18, 2014
 
 Recently two bugs were discovered that caused some matrices to be calculated when they shouldn't have been. We've fixed the issue in each respective package and have released the fix in a new minor version.
 

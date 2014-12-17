@@ -1,4 +1,4 @@
-# Documentation
++Title = Documentation
 
  * General
   * [FAQ](/doc/faq.html)

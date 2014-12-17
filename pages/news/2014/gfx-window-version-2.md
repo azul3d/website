@@ -1,5 +1,5 @@
-# gfx/window: version 2
-<p class="date">September 10, 2014</p>
++Title = gfx/window: version 2
++Date  = September 10, 2014
 
 Azul3D has for a very long time had a [gfx/window](packages.html#gfx-window) package.
 

@@ -1,4 +1,4 @@
-# gfx - Draw Calls
++Title = gfx - Draw Calls
 
 Draw calls occur any time that you *draw* an object to a canvas. Understanding *draw calls* is critical to diagnosing performance of 3D applications.
 

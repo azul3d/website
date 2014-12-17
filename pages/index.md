@@ -1,4 +1,4 @@
-# A 3D game engine written in Go!
++Title = A 3D game engine written in Go!
 
 * State of the art shader-based modern 3D game engine.
 * Cross-platform: Windows, Linux, and Mac OS X [support](/doc/platform-support.html).

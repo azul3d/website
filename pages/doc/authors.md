@@ -1,4 +1,4 @@
-# Authors
++Title = Authors
 
 This is the official list of all *The Azul3D Authors* for copyright purposes. Authors listed in this document agree to the terms found on the [license page](/doc/license.html).
 

@@ -1,5 +1,5 @@
-# Improving The Site And Licensing
-<p class="date">September 15, 2014</p>
++Title = Improving The Site And Licensing
++Date  = September 15, 2014
 
 Today we're happy to announce several improvements to the website and licensing information of Azul3D. We truly want this website to be a comprehensive database about all things Azul3D.
 

@@ -1,5 +1,5 @@
-# Moving From Google Code To GitHub
-<p class="date">July 20, 2014</p>
++Title = Moving From Google Code To GitHub
++Date  = July 20, 2014
 
 For a while now we have considered which project hosting website makes the most sense for us. Previously we have used Google Code, but this is now all changing. This article outlines the primary reasons why we moved to GitHub and what we think Google Code should work on to support open source projects in the future.
 

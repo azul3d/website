@@ -1,4 +1,4 @@
-# Platform Support
++Title = Platform Support
 
 Below is a table of platforms that are supported by Azul3D *today*. More will be added in the future, if you wish to see a new one here please [create an issue](https://github.com/azul3d/issues/issues).</p>
 
