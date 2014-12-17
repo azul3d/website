@@ -6,16 +6,16 @@ package main
 
 import (
 	"flag"
+	"go/build"
+	"html/template"
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"path"
+	"path/filepath"
 	"strings"
 	"time"
-	"path/filepath"
-	"go/build"
-	"os"
-	"html/template"
 
 	"azul3d.org/semver.v1"
 	"azul3d.org/website/mdattr"
@@ -35,12 +35,13 @@ var (
 		Host:    "azul3d.org",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
-	pages         = http.Dir("pages")
-	src = &GitUpdater{
+	pagesDir      = gpPath("azul3d.org/website/pages")
+	pages         = http.Dir(pagesDir)
+	src           = &GitUpdater{
 		Dir: gpPath("azul3d.org/website"),
 	}
 	contentDir = gpPath("azul3d.org/website/content")
-	tmpls = template.Must(template.ParseGlob(path.Join(gpPath("azul3d.org/website/templates"), "*")))
+	tmpls      = template.Must(template.ParseGlob(path.Join(gpPath("azul3d.org/website/templates"), "*")))
 )
 
 // gpPath finds and returns the absolute path to the first directory found in
@@ -104,6 +105,15 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 }
 
 func mdHandler(w http.ResponseWriter, p string) bool {
+	// For the Dir http.FileSystem responder below, we append the pages dir
+	// suffix and then make the path relative.
+	p = path.Join(pagesDir, p)
+	p, err := filepath.Rel(pagesDir, p)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+
 	// foo/bar -> foo/bar/index.html
 	_, file := path.Split(p)
 	if len(file) == 0 {
@@ -212,7 +222,7 @@ func main() {
 	// Source code updater.
 	if *update {
 		go func() {
-			for{
+			for {
 				time.Sleep(5 * time.Minute)
 				updated, err := src.Update()
 				if err != nil {
