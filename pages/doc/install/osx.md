@@ -7,7 +7,7 @@ What follows is a detailed step-by-step guide to install all Azul3D dependencies
 * [Dependencies](#dependencies)
 * [Install Azul3D](#install-azul3d)
 
-# Install Go
+## Install Go
 
 Install the latest version of Go from [here](http://golang.org/doc/install).
 
@@ -15,11 +15,11 @@ Note: *Azul3D requires at least Go version 1.3*
 
 Set the environment variable `GOPATH`, for example to `/home/joe/godev`.
 
-# Install XCode
+## Install XCode
 
 XCode must be installed from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12).
 
-# Dependencies
+## Dependencies
 
 [Homebrew](http://brew.sh/) is used to install the dependencies. To install homebrew run in a terminal:
 
@@ -39,7 +39,7 @@ And then Git:
 brew install git
 ```
 
-# Install Azul3D
+## Install Azul3D
 
 At this point, *you've successfully installed the dependencies*!
 

@@ -7,7 +7,7 @@ These packages are maintained by the community (some may become official Azul3D 
 * [ztext](#ztext)
 * [waveform](#waveform)
 
-# ztext
+## ztext
 
 An interim text package for Azul3D
 
@@ -17,7 +17,7 @@ github.com/dskinner/ztext
 
 * [GitHub](https://github.com/dskinner/ztext) | [GoDoc](https://godoc.org/dasa.cc/ztext)
 
-# waveform
+## waveform
 
 Generates waveform images from audio streams.
 

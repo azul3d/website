@@ -5,7 +5,7 @@ During the [big move to GitHub](/news/2014/moving-from-google-code-to-github.htm
 
 Since one of the goals in our move to GitHub was to split up Azul3D's packages into multiple smaller repositories, it makes sense that we would want to possibly make API-incompatible changes (by incremented a version number, as usual) of a specific package *independent* of other packages: something that we couldn't do with the old versioning scheme.
 
-# What To Do
+## What To Do
 
 Updating to the new import path scheme is easy using a modified go-fix command:
 
@@ -16,7 +16,7 @@ azulfix.v1 path/to/src/
 
 Which will rewrite all `azul3d.org/v1` import paths to their new counterparts.
 
-# Why?
+## Why?
 
 Looking at the previous import paths we had paths that looked like this:</p>
 
@@ -41,7 +41,7 @@ subpkg.DoSomething()
 
 All in all, upgrading to the new system is made easy by the *azulfix* tool and going forward this will allow for better code in many situations.
 
-# Implementation
+## Implementation
 
 If any part of this article is confusing to you, or if you're interested in the implementation details, please see [this page](/doc/versioning.html).
 

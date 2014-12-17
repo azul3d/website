@@ -11,7 +11,7 @@ After a word of cautious advice from *[Dmitri Shuralyov](https://github.com/azul
 
 And then, everything just clicked: *"Why aren't we doing that today?"*
 
-# Glow and glwrap
+## Glow and glwrap
 
 glwrap, our old OpenGL wrapper generator did not generate code that was buildable on OS X. The fix for this would have been only a few lines of code -- but instead we've dedicated ourselves towards working with the rest of the Go community to make Glow -- an open source OpenGL wrapper generator for Go -- better.
 
@@ -23,7 +23,7 @@ And then a [later pull request](https://github.com/go-gl/glow/pull/41) to clean 
 
 The latest version of our OpenGL renderer ([azul3d.org/gfx/gl2.v2](http://azul3d.org/gfx/gl2.v2)) features the use of Glow-OpenGL wrappers internally -- this is amongst a few other [minor changes.](https://github.com/azul3d/gfx-gl2#version-2) to the renderer.
 
-# GLFW3 and Chippy
+## GLFW3 and Chippy
 
 Chippy -- an OpenGL window management package for Go, was actually the very first Azul3D package(!), and was created before GLFW 3 was even in development. Because of this it's not suprising how outdated it is. Although it generally shares the exact same features as GLFW 3 today -- it doesn't support OS X and has no Wayland client on Linux, and it's generally more buggy.
 
@@ -35,7 +35,7 @@ A new version of the Azul3D window package (track progress [here](https://github
 
 In the future the `gfx/window` package will allow you to develop cross-device (desktop and mobile) applications with ease -- ignoring all of those tricky corner-cases.
 
-# Conclusion
+## Conclusion
 
 In conclusion, instead of independent projects each with different features (and likewise equally lacking), we now have one project for OpenGL wrapper generation in Go, and one project for OpenGL window creation in Go, and the both of them are more clean and robust than ever before because of it.
 

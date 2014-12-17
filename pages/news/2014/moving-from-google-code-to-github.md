@@ -3,7 +3,7 @@
 
 For a while now we have considered which project hosting website makes the most sense for us. Previously we have used Google Code, but this is now all changing. This article outlines the primary reasons why we moved to GitHub and what we think Google Code should work on to support open source projects in the future.
 
-# What We Liked
+## What We Liked
 
 Google Code is a great project hosting site and has aided us since *Jun 28, 2012*. It is certainly decent and being backed by Google gave us a lot of comfort in mind. We encourage others to try out Google Code because:
 
@@ -11,7 +11,7 @@ Google Code is a great project hosting site and has aided us since *Jun 28, 2012
 * A very easy-to-use wiki system.
 * The issue tracker works wonders.
 
-# What We Didn't
+## What We Didn't
 
 Google Code does come with a few faults or lacking features though. Many of these are not the case with GitHub, which encouraged our move there. The things that we didn't like about it where:
 

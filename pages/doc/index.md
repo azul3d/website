@@ -15,6 +15,6 @@
  * Graphics
   * [Draw Calls](/doc/gfx/draw-calls.html)
 
-# API Reference
+## API Reference
 
 Each package's API documentation can be found through the [packages page](/packages.html).

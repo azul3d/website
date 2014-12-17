@@ -7,7 +7,7 @@ This page documents how to install Azul3D on any [supported platform](/doc/platf
 * [Examples](#examples)
 * [From Scratch](#from-scratch)
 
-# Dependencies
+## Dependencies
 
 Azul3D requires a few system tools and libraries to be installed (like GCC/MinGW, FreeType, etc).
 
@@ -17,7 +17,7 @@ Detailed installation instructions for each [supported platform](/doc/platform-s
 * [Linux (386 / amd64)](/doc/install/linux.html)
 * [Mac OS X (amd64)](/doc/install/osx.html)
 
-# Modularity
+## Modularity
 
 Azul3D is very modular, each package is installed separately. This is very useful because you only need to install the specific Azul3D package that you intend to use (a full list of packages can be found on the [packages page](/packages.html)).
 
@@ -27,7 +27,7 @@ Want to use the `audio` package but not the `gfx` package? Simply just install t
 go get -u azul3d.org/audio.v1
 ```
 
-# Examples
+## Examples
 
 After [installing the dependencies](#dependencies), you can install *most of* the Azul3D packages by simply installing the examples using the [go tool](https://golang.org/cmd/go/):
 
@@ -38,7 +38,7 @@ go get azul3d.org/examples.v1/...
 
 And the example binaries will be installed into the $GOPATH/bin directory.
 
-# From Scratch
+## From Scratch
 
 The best way to install Azul3D is by [installing the examples](#examples), optionally however you can install Azul3D packages from scratch.
 

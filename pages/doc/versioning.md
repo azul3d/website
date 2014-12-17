@@ -8,7 +8,7 @@ Azul3D packages are [semantically versioned](http://semver.org). The implementat
 * [Pre-Release Versions](#pre-release-versions)
 * [Implementation](#implementation)
 
-# The Basics
+## The Basics
 
 To import a Go package from GitHub you would write something like this: 
 
@@ -37,7 +37,7 @@ gfx.Something()
 
 This is because Go analyzes the `package gfx` statement from the Go source files -- and doesn't care about the file path.
 
-# Major Versions Restriction
+## Major Versions Restriction
 
 If a program imports two seperate versions of the same package -- bad things can happen.
 
@@ -64,7 +64,7 @@ azul3d.org/gfx.v1
   -> v1.0.0
 ```
 
-# Version Zero
+## Version Zero
 
 In accordance with section 2. of the [semantic versioning](http://semver.org) specification, which reads:
 
@@ -80,7 +80,7 @@ import "azul3d.org/pkg.v0"
 import "azul3d.org/pkg.v1"
 ```
 
-# Pre-Release Versions
+## Pre-Release Versions
 
 In accordance with section 9. of the [semantic versioning](http://semver.org) specification, which reads:
 
@@ -101,7 +101,7 @@ import "azul3d.org/pkg.v1"
 
 This special extension should only be used if you need features only found in the in-development versions of packages, but most of the time you should never use it and instead stick with the most-recently released version.
 
-# Implementation
+## Implementation
 
 In the implementation we make use of Git tags and branches named after the version (e.g. `v1` or `v1.2.1`).
 

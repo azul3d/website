@@ -7,11 +7,11 @@ Today, we are proud to inform you that **_Mac OS X is officially supported by Az
 
 *This means today you can use Azul3D to develop games in Go that run on Windows, Linux, and Mac OS X!*
 
-# How can I get started?
+## How can I get started?
 
 Head on over to the [installation page](/doc/install)!
 
-# Why wasn't it supported before?
+## Why wasn't it supported before?
 
 There were [a few major changes](https://github.com/azul3d/issues/issues/5#issuecomment-51082780) that had to happen in order to get OS X support working just right. We wanted to make sure we did it the right way -- so instead of jumping right in we took our time getting it just right.
 
@@ -20,7 +20,7 @@ Two of the most major changes to Azul3D were outlined in our article: [Yin and Y
 The third major change was the *release of a new version of Azul3D's [gfx/window](/gfx/window.v2) package*.
 Major changes occured, so we do expect some issues to arise as well. We look forward to helping you by solving them: should you run into any, just let us know!
 
-# Conclusion
+## Conclusion
 
 Azul3D is an extremely versatile and extensible game engine written in Go now supporting all three major desktop operating systems, with [mobile support](/doc/roadmap.html#future-platforms) coming in the future.
 

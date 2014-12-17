@@ -8,6 +8,6 @@ Below is a table of platforms that are supported by Azul3D *today*. More will be
 | Linux            | Any Go supported kernel  | 386, amd64    |
 | Mac OS X         | Any Go supported version | amd64         |
 
-# Future
+## Future
 
 Future platforms that Azul3D may support are outlined on the [roadmap](/doc/roadmap.html#future-platforms).

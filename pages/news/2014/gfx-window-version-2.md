@@ -5,7 +5,7 @@ Azul3D has for a very long time had a [gfx/window](packages.html#gfx-window) pac
 
 [Version 2](/gfx/window.v2) of the package was released in unison with recent [Mac OS X support](/news/2014/mac-osx-support.html) and is outlined here.
 
-# Past
+## Past
 
 In the past, the [gfx/window](packages.html#gfx-window) package had actually just served as a *basic implementation* of how one **might** create a window using *Chippy* and initialize the OpenGL 2 renderer ([gfx/gl2]([gfx/window](packages.html#gfx-gl2)).
 
@@ -19,7 +19,7 @@ This left us asking questions like *"What should the package do? And better yet,
 * *"I just want a window to open so I can draw graphics to it."* - only provide what *most people use*.
 * *"It should work everywhere!"* - this means mobile devices later on, too.
 
-# Present
+## Present
 
 GLFW doesn't work on mobile devices -- and it's not entirely apparent if you would even want it to. Mobile devices offer their own superior API's which are often cleaner to use than respective desktop ones.
 
@@ -103,7 +103,7 @@ if myWindow.Keyboard().Down(keyboard.ArrowUp) {
 }
 ```
 
-# Future
+## Future
 
 The [gfx/window](packages.html#gfx-window) package will add new event types for mobile devices (e.g. for touch events). You'll use the same API as you would for desktop applications, except you'll have touch events rather than mouse events, etc.
 

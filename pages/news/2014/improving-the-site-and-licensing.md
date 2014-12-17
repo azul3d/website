@@ -3,7 +3,7 @@
 
 Today we're happy to announce several improvements to the website and licensing information of Azul3D. We truly want this website to be a comprehensive database about all things Azul3D.
 
-# The Site
+## The Site
 
 This is by no means a slam on Go HTML templates -- they incredibly useful and *in fact we're still using them to render the final HTML pages*. But what started out as just [a few minor changes](https://groups.google.com/forum/#!topic/azul3d/iDeeEHDVbok) to the website eventually turned into moving all of the news articles, documentation (including installation instructions and FAQ), etc over to Markdown instead of Go HTML templates.
 
@@ -17,7 +17,7 @@ Additionally, there were several pages that did not have any dedicated navigatio
 
 We've made a [Doc](/doc/) page in the navigation bar that serves solely to give you an overview of all the Azul3D documentation (excluding [package documentation](/packages.html)) available on the website.
 
-# Licensing
+## Licensing
 
 Previously, we kept a copy of the `LICENSE` file in each package directory. This works well because no matter which package you clone the source code also has a copy of the license, *we're keeping this practice*. But for some people understanding legal documents like these is just plain time consuming. *We're not an alternative to a real lawyer, and we can't provide legal advice to you* but to help with understanding the license there is now a dedicated [license page](/doc/license.html).
 
@@ -29,7 +29,7 @@ We've removed all of the `AUTHOR` files and instead made links to the new [autho
 
 One slight concern in moving to an online [authors page](/doc/authors.html) was spam (we want to give credit to you, not spam you), and for this reason we've made the file (optionally) have ROT13 encoded email addresses in it. The email addresses are decoded client-side in Javascript, so that *most* simple web crawlers won't find the proper email addresses.
 
-# Conclusion
+## Conclusion
 
 We hope to increase the amount and quality of content being brought to you in a legible form through the Azul3D website. It's one of the things that we are constantly trying to improve.
 

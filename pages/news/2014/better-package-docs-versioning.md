@@ -5,7 +5,7 @@ We've made several improvements to package API documentation and versioning. We 
 
 No worries: *Everything we've changed is completely backwards compatible!*
 
-# Documentation
+## Documentation
 
 If you visited our online package API documentation in the past, you would have noticed that we generate and host all of it ourselves.
 
@@ -17,7 +17,7 @@ If you visit the [packages page](/packages.html) you'll notice that it now direc
 
 Going forward this will give us better package documentation and allow us to focus more time on [appropriate things](/doc/roadmap.html). Maybe we can even contribute to `godoc.org` / `gddo` directly and provide benefits for all Gophers!
 
-# Semantic Versioning
+## Semantic Versioning
 
 After making some [bad statements](https://github.com/azul3d/issues/issues/25) and publishing a, *both invalid and needless*, survey -- we learned of something very important: *Semantic Versioning*.
 
@@ -39,7 +39,7 @@ So what changed?
 
 The [versioning page](/doc/versioning.html) has more information.
 
-# semver.v1
+## semver.v1
 
 What is it?
 
@@ -56,7 +56,7 @@ You probably shouldn't use it unless you need to though. [gopkg.in](http://gopkg
 
 The new `semver.v1` package is well-documented and has plenty of tests, going forward it will work very well for us and perhaps a few others -- just give us a shout, we'd love to hear from you as always.
 
-# Conclusion
+## Conclusion
 
 By switching to GoDoc we get better API documentation for all of our Go packages. By following semantic versioning more to-the-dot in our future work we will be better off than ever before, and the new `azul3d.org/semver.v1` package will help us with this.
 

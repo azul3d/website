@@ -7,7 +7,7 @@ What follows is a detailed step-by-step guide to install all Azul3D dependencies
 * [Install MinGW](#install-mingw)
 * [Install Azul3D](#install-azul3d)
 
-# Install Go
+## Install Go
 
 Install the latest version of Go from [here](http://golang.org/doc/install).
 
@@ -15,7 +15,7 @@ Note: *Azul3D requires at least Go version 1.3*
 
 Set the environment variable `GOPATH`, for example to `C:\Users\joe\Desktop\godev`.
 
-# Install Git
+## Install Git
 
 Install git (use default installation options) from [here](http://git-scm.com/downloads).
 
@@ -24,7 +24,7 @@ Add git to the PATH environment variable:
 * *32-bit:* `C:\Program Files\Git\bin`
 * *64-bit:* `C:\Program Files (x86)\Git\bin`
 
-# Install MinGW
+## Install MinGW
 
 We highly reccomend using TDM GCC -- installation is very simple, just download the installer and use the default options:
 
@@ -33,7 +33,7 @@ We highly reccomend using TDM GCC -- installation is very simple, just download 
 
 Note: *Due to [an existing bug](https://github.com/go-gl/glfw3/issues/91) we reccomend only using GCC 4.8.1 or lower.*
 
-# Install Azul3D
+## Install Azul3D
 
 At this point, *you've successfully installed the dependencies*!
 

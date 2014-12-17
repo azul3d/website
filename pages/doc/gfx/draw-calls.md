@@ -7,7 +7,7 @@ Draw calls occur any time that you *draw* an object to a canvas. Understanding *
  * [Example - Voxels](#example-voxels)
  * [Example - Sprites](#example-sprites)
 
-# What are they?
+## What are they?
 
 Using the gfx package a draw call is done through the `gfx.Canvas` interface, like so:
 
@@ -17,7 +17,7 @@ Where `obj` is a `gfx.Object` and `cam` is a `gfx.Camera`.
 
 In literal OpenGL code the above draw operation would equate to either `glDrawArrays` or `glDrawElements` (depending on whether or not the mesh is indexed). Technically each `canvas.Draw` operations makes `N` draw calls, where `N` is the number of `gfx.Mesh` that the `gfx.Object` being drawn contains.
 
-# Performance
+## Performance
 
 The performance of draw calls depends primarily upon **the number of draw calls** and the **speed of the CPU**. Here is a simple example:
 
@@ -29,7 +29,7 @@ The performance of draw calls depends primarily upon **the number of draw calls*
 
 For more information the performance of draw-calls, see the NVIDIA slides *["Batch, Batch, Batch:" What Does It Really Mean?](http://www.nvidia.com/docs/IO/8228/BatchBatchBatch.pdf)*.
 
-# Performance trade-off
+## Performance trade-off
 
 A naive thought would be *"Well, just draw the entire scene in one draw call then!"*. It's certainly possible to do -- but keep in mind that a single draw call is restricted to:
 
@@ -38,7 +38,7 @@ A naive thought would be *"Well, just draw the entire scene in one draw call the
 
 Thus you can see *the trade-off of dynamism* in place. If you want to use multiple shaders, have objects with different textures, etc then *you need several draw calls*.
 
-# Example - Voxels
+## Example - Voxels
 
 Voxel-based games often make sections of multiple blocks effectively called *chunks*. With our new knowledge of *draw calls* we can explain one of the things that *chunks* solved for these games:
 
@@ -48,7 +48,7 @@ Voxel-based games often make sections of multiple blocks effectively called *chu
   * Small enough that dynamic updates are fast, the smaller the chunk the more fast dynamic updates are.
   * Large enough that we have *lesser draw calls*, the larger the chunk the faster rendering is.
 
-# Example - Sprites
+## Example - Sprites
 
 For another example let's take simple non-animated sprites. A sprite is a square card made up of two triangles (a quad) and a `gfx.Texture` (i.e. the sprite sheet image). Lets say we want to draw *500 sprites*, there are two cases:
 

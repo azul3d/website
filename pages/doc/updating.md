@@ -5,7 +5,7 @@ There are two different types of updating an Azul3D package. One is where you wi
 * [Updating Versions](#updating-versions)
 * [Getting Bug Fixes And Features](#getting-bug-fixes-and-features)
 
-# Updating Versions
+## Updating Versions
 
 Any time API-incompatible changes must be made to an existing package, a new [version](/doc/versioning.html) is created.
 
@@ -37,7 +37,7 @@ Which would rewrite all of the `v1` import paths to become `v2`. It will also wa
 
 You may still need to do some manual fixing yourself -- though. Since it's a new package version it means that some API incompatible change has been made, so your code may need to be updated to reflect the new changes.
 
-# Getting Bug Fixes And Features
+## Getting Bug Fixes And Features
 
 When we don't have to make API-incompatible changes, we don't. Instead these changes are made to the latest released version of the package.
 
