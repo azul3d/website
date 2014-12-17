@@ -5,9 +5,7 @@
 package main
 
 import (
-	"bufio"
 	"flag"
-	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -17,6 +15,8 @@ import (
 	"path/filepath"
 	"go/build"
 	"os"
+	"io/ioutil"
+	"html/template"
 
 	"azul3d.org/semver.v1"
 )
@@ -35,13 +35,12 @@ var (
 		Host:    "azul3d.org",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
-	pages         = &RawGH{
-		User: "azul3d",
-		Repo: "website",
-	}
+	pages         = http.Dir("pages")
 	src = &GitUpdater{
 		Dir: gpPath("azul3d.org/website"),
 	}
+	contentDir = gpPath("azul3d.org/website/content")
+	tmpls = template.Must(template.ParseGlob(path.Join(gpPath("azul3d.org/website/templates"), "*")))
 )
 
 // gpPath finds and returns the absolute path to the first directory found in
@@ -104,6 +103,59 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 	return githubMatcher.Match(u)
 }
 
+func mdHandler(w http.ResponseWriter, p string) bool {
+	// foo/bar -> foo/bar/index.html
+	_, file := path.Split(p)
+	if len(file) == 0 {
+		p = path.Join(p, "index.html")
+	}
+
+	// foo.html -> foo.md
+	if strings.HasSuffix(p, ".html") {
+		p = strings.TrimSuffix(p, ".html")
+		p = p + ".md"
+	}
+
+open:
+	// Open Markdown file.
+	f, err := pages.Open(p)
+	if err != nil {
+		if !os.IsNotExist(err) {
+			log.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return true
+		}
+		return false
+	}
+	defer f.Close()
+
+	fi, err := f.(*os.File).Stat()
+	if fi.IsDir() {
+		// Directories have their index.md served.
+		p = path.Join(p, "index.md")
+		goto open
+	}
+
+	data, err := ioutil.ReadAll(f)
+	if err != nil {
+		log.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return true
+	}
+	html := template.HTML(mdRender(data))
+
+	tmp := tmpls.Lookup("markdown.tmpl")
+	err = tmp.Execute(w, map[string]interface{}{
+		"HTML": html,
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Println(err)
+		return true
+	}
+	return true
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("%v %v\n", r.Method, r.URL)
 
@@ -131,59 +183,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Default to HTTPS scheme.
-	if r.URL.Scheme == "" {
-		r.URL.Scheme = "https"
-	}
-
-	// Just proxy the request to the file host then (it's an actual user -- not
-	// the Go tool).
-	r.RequestURI = ""
-	delete(r.Header, "Content-Length")
-
-	// Change Host in URL so that the request goes to the file host.
-	r.URL.Host = fileHost
-
-	// Force the Host header to be the file host (github.io uses this header).
-	r.Host = fileHost
-
-	resp, err := http.DefaultClient.Do(r)
-	if err != nil {
-		log.Printf("GET error: %v\n", err)
-		w.WriteHeader(http.StatusNotFound)
+	// Let the markdown handler serve the request if it can.
+	if mdHandler(w, r.URL.Path) {
 		return
 	}
-	defer resp.Body.Close()
 
-	// Copy headers over.
-	hdr := w.Header()
-	for k, v := range resp.Header {
-		hdr[k] = v
-	}
-
-	// Peek to detect the content type.
-	br := bufio.NewReaderSize(resp.Body, 1024)
-	if r.Method != "HEAD" && len(resp.Header.Get("If-Modified-Since")) != 0 {
-		ident, err := br.Peek(512)
-		if err != nil {
-			log.Printf("Proxy peek error: %v\n", err)
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-		hdr["Content-Type"] = []string{http.DetectContentType(ident)}
-	}
-
-	// Write the header / status code.
-	w.WriteHeader(resp.StatusCode)
-
-	// Copy the response to the user.
-	_, err = io.Copy(w, br)
-	if err != nil {
-		log.Printf("Proxy copy error: %v\n", err)
-		w.WriteHeader(http.StatusInternalServerError)
+	// Don't know what they want, 404.
+	w.WriteHeader(http.StatusNotFound)
+	if mdHandler(w, "404.html") {
 		return
 	}
-	return
 }
 
 var (
@@ -193,6 +202,7 @@ var (
 
 func main() {
 	flag.Parse()
+	http.Handle("/content/", http.StripPrefix("/content/", http.FileServer(http.Dir(contentDir))))
 	http.HandleFunc("/", handler)
 
 	// Source code updater.
