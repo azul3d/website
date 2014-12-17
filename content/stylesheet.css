@@ -243,7 +243,7 @@ table td{
 	margin-top: 0;
 }
 
-#markdown h1 {
+#markdown h1, #markdown h2 {
 	font-family: 'Audiowide', cursive;
 }
 
