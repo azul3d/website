@@ -1,6 +1,12 @@
-{{template "top.tmpl" .Title}}
+{{template "top.tmpl" .Attr}}
 
 <div id="markdown">
+<h1>{{.Attr.Title}}</h1>
+
+{{if .Attr.Date}}
+	<p class="date">{{.Attr.Date}}</p>
+{{end}}
+
 {{.HTML}}
 </div>
 
