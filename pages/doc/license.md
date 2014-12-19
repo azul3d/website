@@ -25,16 +25,6 @@ Azul3D code is licensed under the 3-Clause BSD license, *the same license that G
 
 The Azul3D Authors are listed in full on the [authors page](/doc/authors.html).
 
-## Contributing
-
-*Contributing is very easy and operates through [GitHub](http://github.com/azul3d)'s standard pull request system. All contributions in any form are licensed under the terms set forth on this page, if you do not agree to these terms then do not submit any such contribution.*
-
-Having your name appear on the [authors page](/doc/authors.html) allows you to receive proper credit for your work, whether small or large, and also allows others to know who is behind the Azul3D open source project.
-
-If you are not already on listed on the [authors page](/doc/authors.html), then notify *Stephen Gutekanst* (<ROT13fgrcura.thgrxnafg@tznvy.pbz>) and you will be added to the page upon your consent.
-
-Optionally, you can [submit a pull request](https://github.com/azul3d/cmd-webgen/blob/master/pages/doc/authors.md) to the authors page. Email addresses listed on the authors page are ROT13 encoded in the Markdown/HTML, and decoded in Javascript to avoid spam. You can use [an online tool](http://www.rot13.com/index.php) to perform the encoding process for you.
-
 ## Text
 
 A plain-text version of the Azul3D license document can be found [here](/content/LICENSE).
