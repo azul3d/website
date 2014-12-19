@@ -50,30 +50,31 @@ $(function() {
 		$(this).addClass("table");
 	});
 
-<!--
-	// Add top-of-page jump links to every h1.
-	$(".article h1").each(function(i, obj) {
-		if(i == 0) {
-			return;
-		}
-		var id = idName(obj.innerHTML);
+	// If the document is twice the window size, add jump-to-top links.
+	if($(document).height() > $(window).height() * 2) {
+		// Add top-of-page jump links to every h1.
+		$("#markdown h1, #markdown h2").each(function(i, obj) {
+			if(i == 0) {
+				return; // Skip the first header.
+			}
+			var id = idName(obj.innerHTML);
 
-		var span = $("<span />", {
-			class: "toplink",
-			text: "(",
-		});
+			var span = $("<span />", {
+				class: "toplink",
+				text: "(",
+			});
 
-		var link = $("<a />", {
-			title: "permalink",
-			href: "#top",
-			text: "top",
+			var link = $("<a />", {
+				title: "permalink",
+				href: "#top",
+				text: "top",
+			});
+			link.appendTo(span);
+			span.append(")");
+			$(this).append(" ");
+			span.appendTo($(this));
 		});
-		link.appendTo(span);
-		span.append(")");
-		$(this).append(" ");
-		span.appendTo($(this));
-	});
--->
+	}
 
 	$("#markdown ul li").each(function(i, obj) {
 		var bio = $("<span />", {

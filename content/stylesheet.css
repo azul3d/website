@@ -237,6 +237,11 @@ table td{
 }
 
 /* ---------- Article Markdown Styles ---------- */
+#markdown .toplink {
+	font-size: 51%;
+	vertical-align: middle;
+}
+
 #markdown h1:first-of-type{
 	padding-bottom: 0;
 	padding-top: 0;
