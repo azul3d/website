@@ -31,7 +31,10 @@ We highly reccomend using TDM GCC -- installation is very simple, just download 
 * [32-bit Installer](http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm-gcc-4.8.1-3.exe/download)
 * [64-bit Installer](http://sourceforge.net/projects/tdm-gcc/files/TDM-GCC%20Installer/tdm64-gcc-4.8.1-3.exe/download)
 
-Note: *Due to [an existing bug](https://github.com/go-gl/glfw3/issues/91) we reccomend only using GCC 4.8.1 or lower.*
+Due to [a bug in Go](https://github.com/go-gl/glfw3/issues/91) you will need specifically either:
+
+- Go v1.4 or greater.
+- GCC v4.8.1 or earlier.
 
 ## Install Azul3D
 
