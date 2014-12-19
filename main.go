@@ -42,6 +42,9 @@ var (
 	}
 	contentDir = gpPath("azul3d.org/website/content")
 	tmpls      = template.Must(template.ParseGlob(path.Join(gpPath("azul3d.org/website/templates"), "*")))
+	redirects  = map[string]string{
+		"/doc": "/",
+	}
 )
 
 // gpPath finds and returns the absolute path to the first directory found in
@@ -192,6 +195,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		tmp.Scheme = "https"
 		tmp.Host = "godoc.org"
 		tmp.Path = path.Join(pkgHandler.Host, tmp.Path)
+		http.Redirect(w, r, tmp.String(), http.StatusSeeOther)
+		return
+	}
+
+	// Handle each redirected page.
+	redirect, ok := redirects[path.Clean(r.URL.String())]
+	if ok {
+		tmp := *r.URL
+		tmp.Path = redirect
 		http.Redirect(w, r, tmp.String(), http.StatusSeeOther)
 		return
 	}
