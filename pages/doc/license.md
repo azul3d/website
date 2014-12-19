@@ -1,6 +1,6 @@
 +Title = License
 
-This page describes in-detail the licensing terms of Azul3D.
+This page describes in-detail the licensing terms of Azul3D. Also see the [authors](/doc/authors.html) and [contributing](/doc/contributing.html) pages.
 
 * [Human Friendly](#human-friendly)
 * [Authors](#authors)
@@ -21,7 +21,7 @@ Azul3D code is licensed under the 3-Clause BSD license, *the same license that G
 
 **End of non-legal advice.**
 
-## Authors
+## The Azul3D Authors
 
 The Azul3D Authors are listed in full on the [authors page](/doc/authors.html).
 

@@ -1,6 +1,6 @@
 +Title = Authors
 
-This is the official list of all *The Azul3D Authors* for copyright purposes. Authors listed in this document agree to the terms found on the [license page](/doc/license.html).
+This is the official list of all *The Azul3D Authors* for copyright purposes. The [contributors](/doc/contributors.html) listed in this document have agreed to the terms set forth in the [license](/doc/license.html).
 
 | Year | Name               | Email Address                          |
 |------|--------------------|----------------------------------------|

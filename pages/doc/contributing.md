@@ -1,6 +1,10 @@
 +Title = Contributing
 
-Azul3D is a _open source project_. Contributing is made easy through GitHub's standardized pull request system.
+Azul3D is a _open source project_. Contributing is made easy through GitHub's standardized pull request system. Also see the [authors](/doc/authors.html) and [license](/doc/license.html) pages.
+
+- [Legal Aspect](#legal-aspect)
+- [Attribution](#attribution)
+- [Email Addresses](#email-addresses)
 
 ## Legal Aspect
 
