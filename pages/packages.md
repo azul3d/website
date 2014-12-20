@@ -1,5 +1,7 @@
 +Title = Package List
 
+TODO(slimsag): cleanup this.
+
 Below is a list of the Go packages provided by Azul3D. There are also [more packages](/more-packages.html) provided by the community.
 
 - [audio](/audio/)
