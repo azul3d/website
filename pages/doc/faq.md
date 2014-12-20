@@ -5,11 +5,7 @@ Compiled here is a list of frequently asked questions about Azul3D. If you have 
 * [What is Azul3D?](#what-is-azul3d)
 * [Why Go?](#why-go)
 * [What does it provide?](#what-does-it-provide)
-* [Is there a roadmap?](#is-there-a-roadmap)
 * [Are there any examples?](#are-there-any-examples)
-* [How do I install it?](#how-do-i-install-it)
-* [How does updating work?](#how-does-updating-work)
-* [How does versioning work?](#how-does-versioning-work)
 * [Why OpenGL 2?](#why-opengl-2)
 * [What about the garbage collector?](#what-about-the-garbage-collector)
 * [Does it have a level editor?](#does-it-have-a-level-editor)
@@ -27,7 +23,7 @@ Azul3D is a 3D game engine written entirely from the ground up in the Go program
 
 It is a game engine for programmers, by programmers. It is minimalistic, but also extensable compared to most other engines.
 
-It tries to provide the things that most game developers will use daily -- and it tries to provide them well.
+It tries to provide the things that most game developers will use daily -- and it tries to provide them _well_.
 
 ## Why Go?
 
@@ -35,31 +31,14 @@ Go is one of the very few languages in existence today that provides concurrency
 
 There are many other areas where Go could excel at game development -- Go has syntax familiar to those coming from scripting languages and ideally games written in Go would also be 'scripted' in Go. You can also imagine each computer player in a simulated game being controlled by it's own goroutine -- something that would not be possible with the threading model present in other languages.
 
-
 ## What does it provide?
 
 Azul3D provides a set of packages for developing games and other interactive 2D or 3D applications in Go, a list of those packages and their documentation can be found [here](/packages.html).
-
-## Is there a roadmap?
-
-Yes, please see the [roadmap page](/doc/roadmap.html).
 
 ## Are there any examples?
 
 Yes! You can download and compile them by following the instructions found on the <a href="/doc/install">installation page.
 Alternatively, [view the source on GitHub](https://github.com).
-
-## How do I install it?
-
-Please see the [installation page](/doc/install).
-
-## How does updating work?
-
-Please see the [updating page](/doc/updating.html).
-
-## How does versioning work?
-
-Please see the [versioning page](/doc/versioning.html).
 
 ## Why OpenGL 2?
 
@@ -91,7 +70,7 @@ Azul3D is mainly for programmers and doesn't yet offer any GUI-based tools. With
 
 ## Can it be scripted?
 
-One of the key points of making games in Go is the easy syntax. You probably don't actually need a scripting language at all. With that being said, you could probably use some scripting language that can interact with Go to script games, yes.
+One of the key points of making games in Go is the _easy syntax_. You probably don't actually need a scripting language at all, _just script in Go instead_. With that being said, you could probably use some scripting language that can interact with Go to script games, of course.
 
 ## Where can I report bugs?
 
@@ -107,7 +86,7 @@ For feature requests not related to any package, or related to this website, etc
 
 ## How can I get in touch?
 
-Please make a post on the [Mailing List](https://groups.google.com/forum/#!forum/azul3d).
+Check out the [community page](/doc/community.html).
 
 ## What types of applications?
 
