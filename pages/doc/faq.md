@@ -2,20 +2,19 @@
 
 Compiled here is a list of frequently asked questions about Azul3D. If you have questions not listed here please ask in the [Mailing List](https://groups.google.com/forum/#!forum/azul3d).
 
-* [What is Azul3D?](#what-is-azul3d)
-* [Why Go?](#why-go)
-* [What does it provide?](#what-does-it-provide)
-* [Are there any examples?](#are-there-any-examples)
-* [Why OpenGL 2?](#why-opengl-2)
-* [What about the garbage collector?](#what-about-the-garbage-collector)
-* [Does it have a level editor?](#does-it-have-a-level-editor)
-* [Can it be scripted?](#can-it-be-scripted)
-* [Where can I report bugs?](#where-can-i-report-bugs)
-* [Where can I request features?](#where-can-i-request-features)
-* [How can I get in touch?](#how-can-i-get-in-touch)
-* [What types of applications?](#what-types-of-applications)
-* [What platforms are supported?](#what-platforms-are-supported)
-
+- [What is Azul3D?](#what-is-azul3d)
+- [Why Go?](#why-go)
+- [What does it provide?](#what-does-it-provide)
+- [Are there any examples?](#are-there-any-examples)
+- [Why OpenGL 2?](#why-opengl-2)
+- [What about the garbage collector?](#what-about-the-garbage-collector)
+- [Does it have a level editor?](#does-it-have-a-level-editor)
+- [Can it be scripted?](#can-it-be-scripted)
+- [Where can I report bugs?](#where-can-i-report-bugs)
+- [Where can I request features?](#where-can-i-request-features)
+- [How can I get in touch?](#how-can-i-get-in-touch)
+- [What types of applications?](#what-types-of-applications)
+- [What platforms are supported?](#what-platforms-are-supported)
 
 ## What is Azul3D?
 
