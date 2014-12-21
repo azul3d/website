@@ -10,7 +10,10 @@
   - [Other Changes](#gfx-other-changes)
 - [gfx/window: Changes](#gfxwindow-changes)
 - [gfx/gl2: Changes](#gfxgl2-changes)
-- [gfx/gfxutil: New Package](#gfxgfxutil-new-package)
+- gfx/gfxutil: New Package
+  - [Distance And State Sorting](#gfxgfxutil-distance-and-state-sorting)
+  - [OpenShader File Utility](#gfxgfxutil-openshader-file-utility)
+  - [OpenTexture File Utility](#gfxgfxutil-opentexture-file-utility)
 - [Full Changelog](#full-changelog)
 
 ## Overview
@@ -66,7 +69,7 @@ See [issue #15](https://github.com/azul3d/gfx/issues/15).
 
 Below is a list of other significant changes made to the _gfx_ package:
 
-- `TexCoord` and `Color` are now valid types for use in the `Shader.Input` map and as data to `VertexAttrib` (see [#23](https://github.com/azul3d/gfx/issues/23)).
+- `TexCoord` and `Color` are now valid types for use in the `Shader.Input` map and as data to `VertexAttrib` (see [issue #23](https://github.com/azul3d/gfx/issues/23)).
 - Added a convenience `Mesh.Normals` slice for storing the normals of a mesh (see [issue #11](https://github.com/azul3d/gfx/issues/11)).
 - The TexWrap mode `BorderColor` is not always present, e.g. in OpenGL ES 2 (see [issue #56](https://github.com/azul3d/gfx/issues/56)).
 - Clarify: Some renderers, e.g. OpenGL ES, only support boolean occlusion queries (see [issue #57](https://github.com/azul3d/gfx/issues/57)).
@@ -75,27 +78,39 @@ Below is a list of other significant changes made to the _gfx_ package:
 
 ## gfx/window: Changes
 
-- Improved package documentation (see [#49](https://github.com/azul3d/gfx/pull/49)).
-- Support for multiple windows (see [#38](https://github.com/azul3d/gfx/issues/38)).
-- Exposed the main thread for clients that need it (see [#39](https://github.com/azul3d/gfx/issues/39)).
-- Uses a 24/bpp framebuffer by default (see [#24](https://github.com/azul3d/gfx/issues/41)).
-- The `gles2` build tag enables the use of the new OpenGL ES 2 renderer on desktops (see [#43](https://github.com/azul3d/gfx/issues/43)).
+- Improved package documentation (see [issue #49](https://github.com/azul3d/gfx/pull/49)).
+- Support for multiple windows (see [issue #38](https://github.com/azul3d/gfx/issues/38)).
+- Exposed the main thread for clients that need it (see [issue #39](https://github.com/azul3d/gfx/issues/39)).
+- Uses a 24/bpp framebuffer by default (see [issue #24](https://github.com/azul3d/gfx/issues/41)).
+- The `gles2` build tag enables the use of the new OpenGL ES 2 renderer on desktops (see [issue #43](https://github.com/azul3d/gfx/issues/43)).
 
 ## gfx/gl2: Changes
 
-- Uses one single OpenGL context instead of the previous two (see [#24](https://github.com/azul3d/gfx/issues/24)).
+- Uses one single OpenGL context instead of the previous two (see [issue #24](https://github.com/azul3d/gfx/issues/24)).
 - Improved package documentation (See [issue #54](https://github.com/azul3d/gfx/issues/54) and [this commit](https://github.com/azul3d/gfx-gl2/commit/493f72dbb36547e394f2d4995ee7d74dbf7b86d4)).
-- `gl2.Renderer` is now `gl2.Device` (See [#60](https://github.com/azul3d/gfx/issues/60)).
-- `gl2.Device` is now an interface (See [#52](https://github.com/azul3d/gfx/issues/52)).
-- `gl2.New` now takes option function parameters (See [#53](https://github.com/azul3d/gfx/issues/53)).
-- Fix a caching failure of shader uniform locations (See [#58](https://github.com/azul3d/gfx/issues/58)).
-- Assets are now (optionally) shared across multiple gl2 devices (See [#28](https://github.com/azul3d/gfx/issues/28)).
+- `gl2.Renderer` is now `gl2.Device` (See [issue #60](https://github.com/azul3d/gfx/issues/60)).
+- `gl2.Device` is now an interface (See [issue #52](https://github.com/azul3d/gfx/issues/52)).
+- `gl2.New` now takes option function parameters (See [issue #53](https://github.com/azul3d/gfx/issues/53)).
+- Fix a caching failure of shader uniform locations (See [issue #58](https://github.com/azul3d/gfx/issues/58)).
+- Assets are now (optionally) shared across multiple gl2 devices (See [issue #28](https://github.com/azul3d/gfx/issues/28)).
 
-## gfx/gfxutil: New Package
+## gfx/gfxutil: Distance And State Sorting
 
-The sorting utilities `ByDist`, `ByState`, and `InsertionSort` from the _gfx_ package have moved to this new package.
+The sorting utilities (`ByDist`, `ByState`, and `InsertionSort`) from the _gfx_ package have moved to this new package.
 
-See [#59](https://github.com/azul3d/gfx/issues/59).
+See [issue #59](https://github.com/azul3d/gfx/issues/59).
+
+## gfx/gfxutil: OpenShader File Utility
+
+The _gfxutil_ package now exposes a OpenShader utility function that can be used to simply open a GLSL vertex and fragment shader.
+
+See [issue #73](https://github.com/azul3d/gfx/issues/73).
+
+## gfx/gfxutil: OpenTexture File Utility
+
+The _gfxutil_ package now exposes a OpenTexture utility function that can be used to simply open a texture image file.
+
+See [issue #74](https://github.com/azul3d/gfx/issues/74).
 
 ## Full Changes
 
