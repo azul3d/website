@@ -10,7 +10,7 @@
   - [Other Changes](#gfx-other-changes)
 - [gfx/window: Changes](#gfxwindow-changes)
 - [gfx/gl2: Changes](#gfxgl2-changes)
-- [gfx/gfxsort: New Package](#gfxgfxsort-new-package)
+- [gfx/gfxutil: New Package](#gfxgfxutil-new-package)
 - [Full Changelog](#full-changelog)
 
 ## Overview
@@ -91,10 +91,11 @@ Below is a list of other significant changes made to the _gfx_ package:
 - Fix a caching failure of shader uniform locations (See [#58](https://github.com/azul3d/gfx/issues/58)).
 - Assets are now (optionally) shared across multiple gl2 devices (See [#28](https://github.com/azul3d/gfx/issues/28)).
 
-## gfx/gfxsort: New Package
+## gfx/gfxutil: New Package
 
-- Sorting utilities from the `gfx` package moved here (See [#59](https://github.com/azul3d/gfx/issues/59)).
-  - `ByDist` `ByState` and `InsertionSort`.
+The sorting utilities `ByDist`, `ByState`, and `InsertionSort` from the _gfx_ package have moved to this new package.
+
+See [#59](https://github.com/azul3d/gfx/issues/59).
 
 ## Full Changes
 
