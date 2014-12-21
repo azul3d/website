@@ -10,6 +10,8 @@
   - [Other Changes](#gfx-other-changes)
 - [gfx/window: Changes](#gfxwindow-changes)
 - [gfx/gl2: Changes](#gfxgl2-changes)
+- gfx/clock: Changes
+  - [Average Shortened To Avg](#gfxclock-average-shortened-to-avg)
 - gfx/gfxutil: New Package
   - [Distance And State Sorting](#gfxgfxutil-distance-and-state-sorting)
   - [OpenShader File Utility](#gfxgfxutil-openshader-file-utility)
@@ -111,6 +113,16 @@ See [issue #73](https://github.com/azul3d/gfx/issues/73).
 The _gfxutil_ package now exposes a OpenTexture utility function that can be used to simply open a texture image file.
 
 See [issue #74](https://github.com/azul3d/gfx/issues/74).
+
+## gfx/clock: Average Shortened To Avg
+
+The _clock_ package has had a few symbol names shortened. Specifically _Average_ to just _Avg_.
+
+| Before                       | After                    |
+|------------------------------|--------------------------|
+| `AverageFrameRate`           | `AvgFrameRate`           |
+| `AverageFrameRateSamples`    | `AvgSampleCount`         |
+| `SetAverageFrameRateSamples` | `SetAvgSampleCount`      |
 
 ## Full Changes
 
