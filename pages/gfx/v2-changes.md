@@ -14,7 +14,7 @@
   - [Distance And State Sorting](#gfxgfxutil-distance-and-state-sorting)
   - [OpenShader File Utility](#gfxgfxutil-openshader-file-utility)
   - [OpenTexture File Utility](#gfxgfxutil-opentexture-file-utility)
-- [Full Changelog](#full-changelog)
+- [Full Changes](#full-changes)
 
 ## Overview
 
