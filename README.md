@@ -2,7 +2,7 @@
 
 This repository holds the code for the server running at [azul3d.org](https://azul3d.org).
 
-Changes accepted into the `master` branch of this repository are automatically served from `azul3d.org`. Just submit a PR, if your changes are accepted they will show up automatically at `azul3d.org` shortly thereafter.
+Changes accepted into the `master` branch of this repository are automatically served from `azul3d.org`. Just submit a pull request: when your changes are accepted they'll automatically appear on the website shortly thereafter.
 
 ## Overview
 
