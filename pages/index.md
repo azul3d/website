@@ -2,7 +2,7 @@
 
 * State of the art shader-based modern 3D game engine.
 * Cross-platform: Windows, Linux, and Mac OS X [support](/doc/platform-support.html).
-* OpenGL, OpenGL ES, and WebGL support.
+* OpenGL 2.x based renderer ([why?](/doc/faq.html#why-opengl-2)).
 * 3D audio via OpenAL.
 
 # Installation
@@ -13,6 +13,6 @@
 
 # News
 
-* [gfx: version 2](/news/2015/gfx-version-2.html)
-* [keyboard, mouse: version 2](/news/2015/keyboard-mouse-version-2.html)
+* [audio/wav: version 1.1](/news/2014/audio-wav-version-1-1.html)
+* [gfx, gfx/gl2: minor update](/news/2014/gfx-gfx-gl2-minor-update.html)
 * [>>> more news](/news/)
