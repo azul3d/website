@@ -2,9 +2,7 @@
 
 This repository holds the code for the server running at [azul3d.org](https://azul3d.org).
 
-## Changes
-
-Changes accepted into the `master` branch of this repository are automatically served from `azul3d.org`. A major shift from the old webgen command that had to be ran manually and was very slow.
+Changes accepted into the `master` branch of this repository are automatically served from `azul3d.org`. Just submit a PR, if your changes are accepted they will show up automatically at `azul3d.org` shortly thereafter.
 
 ## Overview
 
