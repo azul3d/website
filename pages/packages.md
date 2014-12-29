@@ -1,42 +1,19 @@
 +Title = Package List
 
-TODO(slimsag): cleanup this.
-
 Below is a list of the Go packages provided by Azul3D. There are also [more packages](/more-packages.html) provided by the community.
 
-- [audio](/audio/)
-- [gfx](/gfx/)
-- 
-
-## audio
-
-Audio packages are listed on the [audio page](/audio/).
-
-## gfx
-
-Graphics packages are listed on the [gfx page](/gfx/).
-
-## lmath
-
-The [lmath package](/lmath/) implements a 3D linear math library.
-
-## native
-
-Bindings to native (C/C++) API's are listed on the [native page](/native/).
-
-## semver
-
-The [semver package](/semver/) provides semantic versioning for Go packages on custom domains.
-
-## TODO
-
-dstarlite
-dstarlite/grid
-binpack
-keyboard
-mouse
-
-See [issue #33](https://github.com/azul3d/issues/issues/33).
-
-☣  semver
-
+| Package                                | Description                                                      |
+|----------------------------------------|------------------------------------------------------------------|
+| [gfx](/gfx/)                           | A growing set of extensive graphics programming packages for Go. |
+| [audio](/audio.v1)                     | Various audio types and interfaces.                              |
+| [audio/wav](/audio/wav.v1)             | Decodes and encodes wav audio files.                             |
+| [binpack](/binpack.v1)                 | Jake Gordon's 2D binpacking algorithm.                           |
+| [dstarlite](/dstarlite.v1)             | The D* Lite pathfinding algorithm.                               |
+| [dstarlite/grid](/dstarlite/grid.v1)   | D* Lite _grid-based_ pathfinding.                                |
+| [keyboard](/keyboard.v2)               | Various keyboard related data types.                             |
+| [mouse](/mouse.v2)                     | Various mouse related data types.                                |
+| [semver](/semver.v1)                   | Semantic Versioning for Go packages.                             |
+| [native/al](/native/al.v1)             | Go bindings to OpenAL.                                           |
+| [native/cp](/native/cp.v1)             | Go bindings to the Chipmunk 2D Physics Engine.                   |
+| [native/freetype](/native/freetype.v1) | Go bindings to the FreeType font rendering library.              |
+| [native/glfw](/native/glfw.v4)         | Go bindings to GLFW.                                             |
