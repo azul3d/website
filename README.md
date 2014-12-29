@@ -2,21 +2,26 @@
 
 This repository holds the code for the server running at [azul3d.org](https://azul3d.org).
 
-## Layout
+## Changes
 
-| Folder | Description |
-|--------|-------------|
-| `content` | arbitrary files served at `azul3d.org/content`. |
-| `pages` | Markdown files rendered into HTML and served under `/`. |
-| `mdattr` | Go package for parsing Markdown file attributes. |
+Changes accepted into the `master` branch of this repository are automatically served from `azul3d.org`. A major shift from the old webgen command that had to be ran manually and was very slow.
 
-## Installation
+## Overview
+
+| Folder      | Description                                             |
+|-------------|---------------------------------------------------------|
+| `content`   | arbitrary files served at `azul3d.org/content`.         |
+| `pages`     | Markdown files rendered into HTML and served under `/`. |
+| `mdattr`    | Go package for parsing Markdown file attributes.        |
+| `templates` | Go HTML templates used to render the markdown files.    |
+
+## Running Locally
 
 ```
 go get -u -d azul3d.org/website
 cd $GOPATH/src/azul3d.org/website
 go build
-./website -https=
+./website -https= -http=:8080 -update=false
 ```
 
 Notes
