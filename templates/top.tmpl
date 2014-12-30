@@ -15,10 +15,15 @@
 		<link rel="shortcut icon" href="/content/favicon.png"> 
 
 		<!-- Thumbnails for Reddit and OpenGraph (Reddit and Facebook). -->
-		<link rel="image_src" href="http://azul3d.org/content/symbol_256x256.png">
-		<meta property="og:image" content="http://azul3d.org/content/symbol_256x256.png">
+		{{if .Thumbnail}}
+			<link rel="image_src" href="http://azul3d.org{{.Thumbnail}}">
+			<meta property="og:image" content="http://azul3d.org{{.Thumbnail}}">
+		{{else}}
+			<link rel="image_src" href="http://azul3d.org/content/symbol_256x256.png">
+			<meta property="og:image" content="http://azul3d.org/content/symbol_256x256.png">
+		{{end}}
 
-		{{if .}}
+		{{if .Title}}
 			<title>{{.Title}} - Azul3D</title>
 		{{else}}
 			<title>Azul3D</title>
