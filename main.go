@@ -46,6 +46,8 @@ var (
 		"/chippy.v1",
 		"/native/gl.v0",
 		"/native/gl.v1",
+		"/native/gles2.v0",
+		"/native/gles2.v1",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 	pagesDir      = gpPath("azul3d.org/website/pages")
