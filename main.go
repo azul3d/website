@@ -38,6 +38,8 @@ var (
 	legacyMatcher = semver.GitHub(githubLegacyOrg)
 	legacyPackages = []string{
 		"/cmd/webgen.v0",
+		"/cmd/azulfix.v0",
+		"/cmd/azulfix.v1",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 	pagesDir      = gpPath("azul3d.org/website/pages")
