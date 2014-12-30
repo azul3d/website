@@ -50,6 +50,7 @@ var (
 		"/native/gles2.v1",
 		"/thirdparty/resize.v0",
 		"/thirdparty/resize.v1",
+		"/appengine.v0",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 	pagesDir      = gpPath("azul3d.org/website/pages")
