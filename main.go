@@ -23,6 +23,7 @@ import (
 
 const (
 	githubOrg = "azul3d"
+	githubLegacyOrg = "azul3d-legacy"
 	fileHost  = "azul3d.github.io"
 	certFile  = "azul3d.org.pem"
 	keyFile   = "azul3d.org.key"
@@ -33,6 +34,10 @@ var (
 	pkgHandler    = &semver.Handler{
 		Matcher: semver.MatcherFunc(compatMatcher),
 		Host:    "azul3d.org",
+	}
+	legacyMatcher = semver.GitHub(githubLegacyOrg)
+	legacyPackages = []string{
+		"/cmd/webgen.v0",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 	pagesDir      = gpPath("azul3d.org/website/pages")
@@ -91,6 +96,14 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 	//
 	if strings.HasSuffix(u.Path, ".dev") {
 		u.Path = strings.TrimSuffix(u.Path, ".dev") + ".v0"
+	}
+
+	// Legacy packages are in a seperate GitHub repository, let the legacy
+	// matcher handle them.
+	for _, pkg := range legacyPackages {
+		if u.Path == pkg {
+			return legacyMatcher.Match(u)
+		}
 	}
 
 	// Special case for /website, we want:
