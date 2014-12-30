@@ -40,6 +40,8 @@ var (
 		"/cmd/webgen.v0",
 		"/cmd/azulfix.v0",
 		"/cmd/azulfix.v1",
+		"/cmd/glwrap.v0",
+		"/cmd/glwrap.v1",
 		"/chippy.v0",
 		"/chippy.v1",
 		"/native/gl.v0",
