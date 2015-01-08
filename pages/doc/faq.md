@@ -37,7 +37,7 @@ Azul3D provides a set of packages for developing games and other interactive 2D 
 ## Are there any examples?
 
 Yes! You can download and compile them by following the instructions found on the <a href="/doc/install">installation page.
-Alternatively, [view the source on GitHub](https://github.com).
+Alternatively, [view the source on GitHub](https://github.com/azul3d).
 
 ## Why OpenGL 2?
 
