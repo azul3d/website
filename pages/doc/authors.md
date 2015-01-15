@@ -11,3 +11,4 @@ This is the official list of all *The Azul3D Authors* for copyright purposes. Th
 | 2014 | Caleb Spare        | <ROT13prfcner@tznvy.pbz>               |
 | 2014 | Matt Layher        | <ROT13zqynlure@tznvy.pbz>              |
 | 2014 | Sébastien Caparros | <ROT13pbagnpg@fronfgvra-pncneebf.anzr> |
+| 2015 | Olav Lindekleiv    | <ROT13byni@yvaqrxyrvi.pbz>             |
