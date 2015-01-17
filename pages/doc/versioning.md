@@ -18,7 +18,7 @@ import "github.com/user/example"
 
 If you ran `go get github.com/user/example` it would download the most recent version of that package. This is problematic because if future API-incompatible changes are made to that package, your program will no longer build.
 
-Instead of importing packages in the above way, the `azul3d.org` website hosts a special type of proxy application which internally does a bit of magic -- ultimitely it forwards your requests to one of [our GitHub](https://github.com/azul3d) repositories.
+Instead of importing packages in the above way, the `azul3d.org` website hosts a special type of proxy application which internally does a bit of magic -- ultimately it forwards your requests to one of [our GitHub](https://github.com/azul3d) repositories.
 
 For instance to import the `gfx` package you can simply write:
 
