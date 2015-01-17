@@ -21,10 +21,10 @@ And a newer version is available, (the package's [documentation](/chippy.v1#vers
 import "azul3d.org/chippy.v2
 ```
 
-This can be a very tedious task if you have many imports. To make it significantly easier you can use a tool like [govers](http://godoc.org/launchpad.net/govers). To do this you first need to install it using the Go tool:
+This can be a very tedious task if you have many imports. To make it significantly easier you can use the [govers](https://github.com/rogpeppe/govers) tool. To do this you first need to install it using the Go tool:
 
 ```
-go get launchpad.net/govers
+go get github.com/rogpeppe/govers
 ```
 
 And then in the root of the source tree you want to change, you would run:
@@ -35,7 +35,19 @@ govers azul3d.org/chippy.v2
 
 Which would rewrite all of the `v1` import paths to become `v2`. It will also warn you if you are importing code that uses a previous version of the same package -- which is a big no no.
 
-You may still need to do some manual fixing yourself -- though. Since it's a new package version it means that some API incompatible change has been made, so your code may need to be updated to reflect the new changes.
+This just rewrites the import paths -- updating your code to the latest package version means that the API has changed _and you'll need to do some manual fixing yourself still_.
+
+## Switching to unstable and back
+
+It's also possible to use [govers](https://github.com/rogpeppe/govers) to switch back-and-forth between the unstable and stable branch of a package:
+
+```
+# switch from pkg.v3 to pkg.v3-unstable
+govers azul3d.org/pkg.v3-unstable
+
+# switch back to pkg.v3
+govers azul3d.org/pkg.v3
+```
 
 ## Getting Bug Fixes And Features
 
