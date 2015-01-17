@@ -6,7 +6,7 @@ Azul3D packages are [semantically versioned](http://semver.org). The implementat
 * [Major Versions Restriction](#major-versions-restriction)
 * [Version Zero](#version-zero)
 * [Pre-Release Versions](#pre-release-versions)
-* [Implementation](#implementation)
+* [Implementation](/semver)
 
 ## The Basics
 
@@ -36,6 +36,8 @@ gfx.Something()
 ```
 
 This is because Go analyzes the `package gfx` statement from the Go source files -- and doesn't care about the file path.
+
+Also see [updating: updating versions](/doc/updating.html#updating-versions).
 
 ## Major Versions Restriction
 
@@ -86,11 +88,11 @@ In accordance with section 9. of the [semantic versioning](http://semver.org) sp
 
 > A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers immediately following the patch version. Identifiers MUST comprise only ASCII alphanumerics and hyphen [0-9A-Za-z-]. Identifiers MUST NOT be empty. Numeric identifiers MUST NOT include leading zeroes. Pre-release versions have a lower precedence than the associated normal version. A pre-release version indicates that the version is unstable and might not satisfy the intended compatibility requirements as denoted by its associated normal version. Examples: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92.
 
-A *single pre-release version* is supported by prefixing `-dev` onto the existing version number, like so:
+A *single pre-release version* is supported by prefixing `-unstable` onto the existing version number, like so:
 
 ```
 // in-development
-import "azul3d.org/pkg.v2-dev"
+import "azul3d.org/pkg.v2-unstable"
 
 // not released yet
 import "azul3d.org/pkg.v2"
@@ -99,15 +101,11 @@ import "azul3d.org/pkg.v2"
 import "azul3d.org/pkg.v1"
 ```
 
-This special extension should only be used if you need features only found in the in-development versions of packages, but most of the time you should never use it and instead stick with the most-recently released version.
+This special extension should only be used if you need features only found in the latest unstable versions of packages, but most of the time you should never use it and instead stick with the most-recently released version.
+
+Also see [updating: switching to unstable and back](/doc/updating.html#switching-to-unstable-and-back).
 
 ## Implementation
 
-In the implementation we make use of Git tags and branches named after the version (e.g. `v1` or `v1.2.1`).
-
-If both a branch and tag of the same name and version exist (e.g. tag `v1` and branch `v1` both exist), then the first choice *is always the branch*, and the second is the tag. Otherwise the latest version is always used (i.e. tag `v1.1` will be chosen over branch `v1`).
-
-Note that the application at `azul3d.org` is truly just a special proxy application -- all of the code is still hosted [on GitHub](https://github.com/azul3d).
-
-If you want to see how all of this happens you can [view the source](http://github.com/azul3d/appengine).
+For details on the implementation see the [semver package](/semver).
 
