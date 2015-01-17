@@ -245,6 +245,15 @@ table td{
 }
 
 /* ---------- Article Markdown Styles ---------- */
+#markdown a[href*="godoc.org"] {
+	text-decoration: none;
+	margin-left: 1em;
+}
+
+#markdown a[href*="travis-ci.org"] {
+	text-decoration: none;
+}
+
 #markdown .toplink {
 	font-size: 51%;
 	vertical-align: middle;

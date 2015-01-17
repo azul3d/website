@@ -14,7 +14,7 @@ Below is a list of the Go packages provided by Azul3D. There are also [more pack
 | [dstarlite/grid.v1](/dstarlite/grid.v1)   | D* Lite _grid-based_ pathfinding.                      |
 | [keyboard.v1](/keyboard.v1)               | Various keyboard related data types.                   |
 | [mouse.v1](/mouse.v1)                     | Various mouse related data types.                      |
-| [semver.v1](/semver.v1)                   | Semantic Versioning for Go packages.                   |
+| [semver](/semver)                         | Semantic Versioning for Go packages.                   |
 | [native/al.v1](/native/al.v1)             | Go bindings to OpenAL.                                 |
 | [native/cp.v1](/native/cp.v1)             | Go bindings to the Chipmunk 2D Physics Engine.         |
 | [native/freetype.v1](/native/freetype.v1) | Go bindings to the FreeType font rendering library.    |

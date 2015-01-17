@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"azul3d.org/semver.v1"
+	"azul3d.org/semver.v2"
 	"azul3d.org/website/mdattr"
 )
 
@@ -51,6 +51,9 @@ var (
 		"/thirdparty/resize.v0",
 		"/thirdparty/resize.v1",
 		"/appengine.v0",
+	}
+	customPkgPages = []string{
+		"/semver",
 	}
 	githubMatcher = semver.GitHub(githubOrg)
 	pagesDir      = gpPath("azul3d.org/website/pages")
@@ -216,11 +219,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if status == semver.PkgPage {
-		// Package page, redirect them to godoc.org documentation.
+		// Package page, by default we redirect them to godoc.org documentation.
 		tmp := *r.URL
 		tmp.Scheme = "https"
 		tmp.Host = "godoc.org"
 		tmp.Path = path.Join(pkgHandler.Host, tmp.Path)
+
+		// For some packages, we have our own Markdown presentation page.
+		for _, prefix := range customPkgPages {
+			if !strings.HasPrefix(r.URL.Path, prefix) {
+				continue
+			}
+			tmp.Host = pkgHandler.Host
+			tmp.Path = prefix
+			break
+		}
+
 		http.Redirect(w, r, tmp.String(), http.StatusSeeOther)
 		return
 	}
