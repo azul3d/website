@@ -13,6 +13,6 @@
 
 # News
 
+- [semver: version 2](/news/2015/semver-version-2.html)
 - [audio/wav: version 1.1](/news/2014/audio-wav-version-1-1.html)
-- [gfx, gfx/gl2: minor update](/news/2014/gfx-gfx-gl2-minor-update.html)
 - [>>> more news](/news/)
