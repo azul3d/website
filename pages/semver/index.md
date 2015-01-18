@@ -27,6 +27,7 @@ Also see the [versioning](/doc/versioning.html) and [updating](/doc/updating.htm
 
 - Development branches `pkg.v2-dev` replaced by _unstable_ branches `pkg.v2-unstable` (see [#7](https://github.com/azul3d/semver/issues/7)).
 - A tool to migrate from `-dev` to `-unstable` is available, [see here](https://github.com/azul3d/semver/issues/7#issuecomment-70383909).
+- Clicking on types on _godoc.org_ now brings you to the source code on GitHub (see [#10](https://github.com/azul3d/semver/issues/10)).
 - [Full Changes](https://github.com/azul3d/semver/compare/v1.0.1...v2)
 
 ## Version 1.0.1: Changes
