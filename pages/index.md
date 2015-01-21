@@ -13,6 +13,6 @@
 
 # News
 
+- [semver: version 2.0.1](/news/2015/semver-version-201.html)
 - [semver: version 2](/news/2015/semver-version-2.html)
-- [audio/wav: version 1.1](/news/2014/audio-wav-version-1-1.html)
 - [>>> more news](/news/)

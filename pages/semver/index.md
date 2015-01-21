@@ -8,6 +8,7 @@ import "azul3d.org/semver.v2"
 
 - [What is it?](#what-is-it)
 - Version History
+  - [Version 2.0.1](#version-201-changes)
   - [Version 2](#version-2-changes)
   - [Version 1.0.1](#version-101-changes)
   - [Version 1](#version-1-changes)
@@ -22,6 +23,13 @@ import "azul3d.org/semver.v2"
 - Unstable branches (e.g. `import "pkg.v2-unstable"`).
 
 Also see the [versioning](/doc/versioning.html) and [updating](/doc/updating.html) pages.
+
+## Version 2.0.1: Changes
+
+- Fixed a documentation typo (see [#11](https://github.com/azul3d/semver/pull/11)).
+- Fixed a critical bug that caused `v1` to be chosen over `v1.0.1` (see [#12](https://github.com/azul3d/semver/issues/12)).
+- Added extensive tests for version choosing to avoid future issues (see [commit](https://github.com/azul3d/semver/commit/9f950773d7a302656368bae7747e1e7633429b17)).
+- [Full Changes](https://github.com/azul3d/semver/compare/v2...v2.0.1)
 
 ## Version 2: Changes
 
