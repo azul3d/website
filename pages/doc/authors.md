@@ -13,3 +13,4 @@ This is the official list of all *The Azul3D Authors* for copyright purposes. Th
 | 2014 | Sébastien Caparros  | <ROT13pbagnpg@fronfgvra-pncneebf.anzr> |
 | 2015 | Olav Lindekleiv     | <ROT13byni@yvaqrxyrvi.pbz>             |
 | 2015 | Christoffer Thomsen | <ROT13puevf@ptg.anzr>                  |
+| 2015 | Tobias Breitwieser  | <ROT13gbovnf@oervgjvrfre.ovm>          |
