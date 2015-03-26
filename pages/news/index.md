@@ -1,6 +1,7 @@
 +Title = News
 
 - 2015
+  - [audio/wav: version 1.1.1](/news/2015/audio-wav-version-111.html)
   - [semver: version 2.0.1](/news/2015/semver-version-201.html)
   - [semver: version 2](/news/2015/semver-version-2.html)
 - 2014
