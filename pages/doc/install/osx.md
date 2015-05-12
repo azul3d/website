@@ -24,7 +24,7 @@ XCode must be installed from the [App Store](https://itunes.apple.com/us/app/xco
 [Homebrew](http://brew.sh/) is used to install the dependencies. To install homebrew run in a terminal:
 
 ```
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Then to install the FreeType library:
