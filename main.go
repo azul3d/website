@@ -127,9 +127,8 @@ func compatMatcher(u *url.URL) (r *semver.Repo, err error) {
 	//  go get azul3d.org/website
 	//
 	// to simply download the latest (v0).
-	if strings.HasPrefix(u.Path, "/website") {
-		u.Path = u.Path[:len("/website")]
-		u.Path = "/website.v0" + u.Path
+	if u.Path == "/website" {
+		u.Path = "/website.v0"
 	}
 
 	// Now let the github matcher perform the matching.
