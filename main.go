@@ -6,6 +6,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"go/build"
 	"html/template"
 	"log"
@@ -22,11 +23,11 @@ import (
 )
 
 const (
-	githubOrg = "azul3d"
+	githubOrg       = "azul3d"
 	githubLegacyOrg = "azul3d-legacy"
-	fileHost  = "azul3d.github.io"
-	certFile  = "azul3d.org.pem"
-	keyFile   = "azul3d.org.key"
+	fileHost        = "azul3d.github.io"
+	certFile        = "azul3d.org.pem"
+	keyFile         = "azul3d.org.key"
 )
 
 var (
@@ -35,7 +36,7 @@ var (
 		Matcher: semver.MatcherFunc(compatMatcher),
 		Host:    "azul3d.org",
 	}
-	legacyMatcher = semver.GitHub(githubLegacyOrg)
+	legacyMatcher  = semver.GitHub(githubLegacyOrg)
 	legacyPackages = []string{
 		"/cmd/webgen.v0",
 		"/cmd/azulfix.v0",
@@ -207,6 +208,26 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if time.Since(lastIdlePurge) > 2*time.Hour {
 		lastIdlePurge = time.Now()
 		http.DefaultTransport.(*http.Transport).CloseIdleConnections()
+	}
+
+	// Manual handler for engine is needed because semver package can't handle lfs
+	// for some reason (and we're probably deprecating the semver package).
+	if r.URL.Path == "/engine" {
+		fmt.Fprintf(w, `
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="go-import" content="azul3d.org/engine git https://github.com/azul3d/engine">
+		<meta name="go-source" content="azul3d.org/engine https://github.com/azul3d/engine/ https://github.com/azul3d/engine/tree/master{/dir} https://github.com/azul3d/engine/blob/master{/dir}/{file}#L{line}">
+		<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org/engine">
+	</head>
+	<body>
+		Nothing to see here; <a href="https://godoc.org/azul3d.org/engine">move along</a>.
+	</body>
+</html>
+`)
+		return
 	}
 
 	// Give our semver handler the ability to handle the request.
