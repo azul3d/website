@@ -243,6 +243,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 </body>
 </html>
 `)
+		return
 	}
 
 	// Give our semver handler the ability to handle the request.
