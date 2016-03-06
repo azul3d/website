@@ -228,6 +228,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
 </html>
 `)
 		return
+	} else if r.URL.Path == "/examples" {
+		fmt.Fprintf(w, `
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="go-import" content="azul3d.org/examples git https://github.com/azul3d/examples">
+	<meta name="go-source" content="azul3d.org/examples https://github.com/azul3d/examples/ https://github.com/azul3d/examples/tree/master{/dir} https://github.com/azul3d/examples/blob/master{/dir}/{file}#L{line}">
+	<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org/examples">
+</head>
+<body>
+	Nothing to see here; <a href="https://godoc.org/azul3d.org/engine">move along</a>.
+</body>
+</html>
+`)
 	}
 
 	// Give our semver handler the ability to handle the request.
