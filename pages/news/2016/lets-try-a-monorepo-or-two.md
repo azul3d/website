@@ -49,4 +49,4 @@ And `azul3d.org/native/glfw.v5` is now imported at `github.com/go-gl/glfw/v3.1/g
 You weren't the only one that got a bit spammed by all this progress, and we can
 only hope you got less than the three pages we got!
 
-![sorry](http://virtivia.com:27080/1qa7nvwkdq5m9.png)
+![sorry](http://i.imgur.com/s2Mi79j.png)
