@@ -24,6 +24,24 @@ Add git to the PATH environment variable:
 * *32-bit:* `C:\Program Files\Git\bin`
 * *64-bit:* `C:\Program Files (x86)\Git\bin`
 
+## Install Chocolatey (package manager)
+
+[Install choco](https://chocolatey.org/) by running this inside an administrative command prompt:
+
+```
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+```
+
+## Install Git LFS
+
+Install [Git LFS](https://git-lfs.github.com/) or else you will be missing
+critical files. To install it run:
+
+```
+choco install git-lfs.install
+git lfs install
+```
+
 ## Install MinGW
 
 We highly reccomend using TDM GCC -- installation is very simple, just download the installer and use the default options:
@@ -41,4 +59,3 @@ Due to [a bug in Go](https://github.com/go-gl/glfw3/issues/91) you will need spe
 At this point, *you've successfully installed the dependencies*!
 
 Follow the rest of the instructions on the [installation page](/doc/install).
-

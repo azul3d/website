@@ -63,6 +63,16 @@ Using pacman on Arch Linux you can install all of the dependencies by running:
 pacman -Sy base-devel git mesa libx11 libxcb xcb-util-wm xcb-util-image libxrandr xcb-util-renderutil libxkbcommon-x11 freetype2 bzip2
 ```
 
+## Install Git LFS
+
+[Install Git LFS](https://git-lfs.github.com/) or else you'll be missing critical files. To install it run:
+
+```
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
+```
+
 ## Install Azul3D
 
 At this point, *you've successfully installed the dependencies*!

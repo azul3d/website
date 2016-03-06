@@ -33,10 +33,18 @@ Then to install the FreeType library:
 brew install freetype
 ```
 
-And then Git:
+Git:
 
 ```
 brew install git
+```
+
+And [Git LFS](https://git-lfs.github.com/) or else you will be missing critical
+files. To install it run:
+
+```
+brew install git-lfs
+git lfs install
 ```
 
 ## Install Azul3D
@@ -44,4 +52,3 @@ brew install git
 At this point, *you've successfully installed the dependencies*!
 
 Follow the rest of the instructions on the [installation page](/doc/install).
-

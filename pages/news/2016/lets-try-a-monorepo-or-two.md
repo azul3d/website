@@ -44,6 +44,11 @@ The following packages have also been released as part of this whole migration:
 
 And `azul3d.org/native/glfw.v5` is now imported at `github.com/go-gl/glfw/v3.1/glfw` (the official location for this repository -- as always).
 
+## Git LFS usage
+
+We're now using Git LFS in order to ship some files like the binary OpenAL blobs
+and assets for the examples. [See the installation instructions for more info](/doc/install).
+
 ## And last but not least.. an apology for the noise
 
 You weren't the only one that got a bit spammed by all this progress, and we can
