@@ -13,6 +13,6 @@
 
 # News
 
+- [Let's try a monorepo (or two)!](/news/2016/lets-try-a-monorepo-or-two.html)
 - [audio/wav: version 1.1.1](/news/2015/audio-wav-version-111.html)
-- [semver: version 2.0.1](/news/2015/semver-version-201.html)
 - [>>> more news](/news/)

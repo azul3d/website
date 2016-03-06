@@ -214,7 +214,7 @@ table{
 	border: none;
 
 	*border-collapse: collapse; /* IE7 and lower */
-	border-spacing: 0; 
+	border-spacing: 0;
 }
 
 table th{
@@ -263,6 +263,11 @@ table td{
 	padding-bottom: 0;
 	padding-top: 0;
 	margin-top: 0;
+}
+
+#markdown img {
+   height: auto;
+   width:100%;
 }
 
 #markdown h1, #markdown h2 {
