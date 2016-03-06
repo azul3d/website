@@ -239,7 +239,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org/examples">
 </head>
 <body>
-	Nothing to see here; <a href="https://godoc.org/azul3d.org/engine">move along</a>.
+	Nothing to see here; <a href="https://godoc.org/azul3d.org/examples">move along</a>.
 </body>
 </html>
 `)
