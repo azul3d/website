@@ -212,7 +212,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Manual handler for engine is needed because semver package can't handle lfs
 	// for some reason (and we're probably deprecating the semver package).
-	if r.URL.Path == "/engine" {
+	if strings.HasPrefix(r.URL.Path, "/engine") {
 		fmt.Fprintf(w, `
 <!DOCTYPE html>
 <html>
@@ -220,15 +220,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="go-import" content="azul3d.org/engine git https://github.com/azul3d/engine">
 		<meta name="go-source" content="azul3d.org/engine https://github.com/azul3d/engine/ https://github.com/azul3d/engine/tree/master{/dir} https://github.com/azul3d/engine/blob/master{/dir}/{file}#L{line}">
-		<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org/engine">
+		<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org%s">
 	</head>
 	<body>
-		Nothing to see here; <a href="https://godoc.org/azul3d.org/engine">move along</a>.
+		Nothing to see here; <a href="https://godoc.org/azul3d.org%s">move along</a>.
 	</body>
 </html>
-`)
+`, r.URL.Path, r.URL.Path)
 		return
-	} else if r.URL.Path == "/examples" {
+	} else if strings.HasPrefix(r.URL.Path, "/examples") {
 		fmt.Fprintf(w, `
 <!DOCTYPE html>
 <html>
@@ -236,13 +236,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="go-import" content="azul3d.org/examples git https://github.com/azul3d/examples">
 	<meta name="go-source" content="azul3d.org/examples https://github.com/azul3d/examples/ https://github.com/azul3d/examples/tree/master{/dir} https://github.com/azul3d/examples/blob/master{/dir}/{file}#L{line}">
-	<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org/examples">
+	<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org%s">
 </head>
 <body>
-	Nothing to see here; <a href="https://godoc.org/azul3d.org/examples">move along</a>.
+	Nothing to see here; <a href="https://godoc.org/azul3d.org%s">move along</a>.
 </body>
 </html>
-`)
+`, r.URL.Path, r.URL.Path)
 		return
 	}
 
