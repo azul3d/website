@@ -235,7 +235,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="go-import" content="azul3d.org/examples git https://github.com/azul3d/examples">
-	<meta name="go-source" content="azul3d.org/examples https://github.com/azul3d/examples/ https://gotools.org/azul3d.org/examples{/dir} https://gotools.org/azul3d.org/examples{/dir}#{file}-L{line}">
+	<!-- temporarily disabled for gddo refresh -->
+	<!--<meta name="go-source" content="azul3d.org/examples https://github.com/azul3d/examples/ https://gotools.org/azul3d.org/examples{/dir} https://gotools.org/azul3d.org/examples{/dir}#{file}-L{line}">-->
 	<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org%s">
 </head>
 <body>
