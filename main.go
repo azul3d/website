@@ -219,7 +219,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="go-import" content="azul3d.org/engine git https://github.com/azul3d/engine">
-		<meta name="go-source" content="azul3d.org/engine https://github.com/azul3d/engine https://gotools.org/azul3d.org/engines{/dir} https://gotools.org/azul3d.org/engines{/dir}#{file}-L{line}">
+		<meta name="go-source" content="azul3d.org/engine https://github.com/azul3d/engine https://gotools.org/azul3d.org/engine{/dir} https://gotools.org/azul3d.org/engine{/dir}#{file}-L{line}">
 		<meta http-equiv="refresh" content="0; url=https://godoc.org/azul3d.org%s">
 	</head>
 	<body>
